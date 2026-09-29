@@ -6,7 +6,7 @@ Veyo is being built to help teams inspect what draws predicted visual attention 
 
 ## Status
 
-Initial repository setup. The application and its model integration have not been implemented in this repository yet. The capabilities and stack below describe the planned product.
+The local Python environment is set up and verified: DeepGaze IIE imports successfully, and the supplied JPEG decodes correctly. Model loading, inference, and the web application have not been implemented yet. The capabilities and architecture below describe the planned product.
 
 ## First milestone
 
@@ -46,7 +46,7 @@ Introduce Docker and focused automated checks as components are implemented. Con
 
 ## Development
 
-Build and verify one complete increment at a time. Record significant design decisions and their tradeoffs as the project develops. Reproducible setup instructions will accompany the first runnable component.
+Build and verify one complete increment at a time. Record significant design decisions and their tradeoffs as the project develops. See [the environment setup guide](docs/environment.md), [the environment decision](docs/decisions/0001-model-environment.md), and [the build log](docs/build-log.md).
 
 Keep local ads, generated results, model weights, secrets, and installed dependencies out of Git. Small, deliberately selected test fixtures can be tracked separately when appropriate.
 

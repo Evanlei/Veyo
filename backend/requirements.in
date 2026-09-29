@@ -1,0 +1,13 @@
+# Direct requirements for the first model experiment.
+# Source-package lines are pinned to freshly resolved upstream commits at setup.
+numpy
+Pillow
+torch
+torchvision
+# Imported by DeepGaze modules; upstream metadata does not list all of these.
+scipy
+einops
+PyYAML
+setuptools
+clip @ git+https://github.com/openai/CLIP.git@d05afc436d78f1c48dc0dbf8e5980a9d471f35f6
+deepgaze_pytorch @ git+https://github.com/matthias-k/DeepGaze.git@c7db17e2d1d7ea6468ffdee2cfaddf141095dcff
