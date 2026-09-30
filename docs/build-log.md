@@ -49,3 +49,23 @@ Added eleven focused checks using Python's built-in unittest; no dependency chan
 Choice and tradeoff: white follows the user's selected display background; it makes transparency deterministic but means results apply to that background. Using RGBA for all inputs keeps one compositing path at the cost of temporary image buffers. The next feature remains real inference and a manually verified product target; the heatmap must use the same canonical image coordinates.
 
 Git staging, commits and pushes are left to the user. Suggested commit message: `feat: add validated RGB image loader`.
+
+## 2026-09-30 — Real DeepGaze IIE inference
+
+Added `veyo.inference` with a reusable sequential CPU predictor and a command-line entry point. The canonical image becomes a 1 x 3 x H x W float32 tensor with RGB values in 0..255. Predictions are validated as finite, normalized log probabilities before conversion to a float64 probability map. Model failures propagate with no fallback.
+
+New runs save a canonical PNG, probability.npy and a completion report with source/model identity, prior, preprocessing, dimensions and timing. Existing directories are rejected. Pretrained files were downloaded fresh into Veyo/model-cache through upstream loaders. No old experiment code, environments, pins or weights were carried over.
+
+Verification:
+- All 20 unittest checks pass (11 loader, 9 inference). Mathematical contract tests use explicit fixtures/test doubles; the following run uses the genuine pretrained model.
+- Actual product JPEG: 683 x 1024, probability array (1024, 683), all values finite and nonnegative, sum 1.0.
+- First load, including downloads: 52.72 seconds; one CPU inference: 1.44 seconds using four threads. This is a single-image observation, not a throughput benchmark.
+- Reloaded saved artifacts independently; checked source and probability-file hashes, shape, normalization and canonical-image mode/size.
+- Repeated the CLI against the same output directory: it returned a clear error without changing any artifacts.
+- Confirmed model-cache and outputs stay ignored by Git.
+
+Choice and tradeoff: retain the original canonical resolution for direct coordinate alignment and use a recorded uniform spatial prior. Larger images may take more memory and time; center-prior sensitivity and model accuracy on ads remain unvalidated. The cache setting is process-wide; concurrency and durable job execution are future work.
+
+Local result: outputs/ordinary-baseline (ignored). No product score or heatmap has been generated yet. Next, mark the four-product target from the canonical image and implement probability-based scoring and an aligned overlay.
+
+User owns staging/commits/pushes. Suggested commit: `feat: add real DeepGaze inference`.

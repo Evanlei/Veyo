@@ -6,7 +6,7 @@ Veyo is being built to help teams inspect what draws predicted visual attention 
 
 ## Status
 
-The Python environment and image loader are implemented. The loader validates static PNG/JPEG content, corrects EXIF orientation, and composites transparency onto white to return an independent RGB image. Eleven focused loader tests pass. Model loading, inference, and the web application have not been implemented yet. The capabilities and architecture below describe the planned product.
+The image loader and real CPU DeepGaze IIE inference are implemented. Twenty focused tests pass, and a prediction on the supplied product image has been verified for dimensions and probability normalization. Target scoring, heatmap visualization, and the web application are the next features. The capabilities and architecture below describe the planned product.
 
 ## First milestone
 
@@ -66,3 +66,18 @@ cd backend
 ```
 
 `veyo.images.load_image(path)` returns an RGB Pillow image at its oriented dimensions. It does not resize, alter the source file, or run the model. See [the image-loader decision](docs/decisions/0002-canonical-image-loader.md) for the contract and remaining upload concerns.
+
+## Run real inference
+
+From the repository root, using the installed environment:
+
+```sh
+cd backend
+.venv/bin/python -m veyo.inference ../data/samples/the-ordinary-review-is-this.jpeg --output ../outputs/my-first-run
+```
+
+Choose a new output directory for every run. The first run downloads upstream pretrained model files into the ignored `model-cache/` directory. Subsequent runs reuse the cache. No fallback prediction is generated if downloading or inference fails.
+
+The output directory contains `input.png` (canonical image), `probability.npy` (numerical H x W probability grid), and `report.json` (settings, identity hashes, dimensions and timing). A completed report is written last. There is no overlay or target score yet.
+
+Inference uses CPU, four threads by default, a uniform center-bias input, and no external resizing. See [the inference decision](docs/decisions/0003-real-inference.md). These results are model predictions; the successful run establishes pipeline mechanics, not accuracy on ads.
