@@ -69,3 +69,15 @@ Choice and tradeoff: retain the original canonical resolution for direct coordin
 Local result: outputs/ordinary-baseline (ignored). No product score or heatmap has been generated yet. Next, mark the four-product target from the canonical image and implement probability-based scoring and an aligned overlay.
 
 User owns staging/commits/pushes. Suggested commit: `feat: add real DeepGaze inference`.
+
+## 2026-09-30 — Rectangle scoring checkpoint
+
+Added `veyo.scoring.score_region` and six focused tests. It validates the map and rectangle, then sums probability within the selected region, correcting only small numerical normalization drift. The user approved (55, 440, 645, 960) for all four products before scoring.
+
+Verification: all 26 tests pass from backend with `.venv/bin/python -B -m unittest discover -s tests -v`. An initial invocation from the repository root failed package imports; rerunning from the documented backend working directory resolved that invocation error. Verified the stored probability-file hash against its inference report and checked canonical dimensions before scoring the existing genuine result. Score: 0.38006978025813865 (38.01%); box area: 43.87% of the image. No model rerun or modification of saved inference artifacts.
+
+Limits: the box includes background; this value is not an ad performance or CTR measurement. The function assumes callers supply the matching canonical probability map. Persistent target identity and score records remain unimplemented.
+
+Collaboration preference reaffirmed: one small implementation, explain what it does, stop for review, and present meaningful architecture alternatives for the user to choose before implementing them. User owns Git mutations. Suggested checkpoint commit: `feat: add validated rectangle attention scoring`.
+
+Next review: understand [top:bottom, left:right], then choose whether the next small increment records a reproducible target/score file or displays the aligned heatmap. Do not implement either before that checkpoint.
