@@ -6,7 +6,7 @@ Veyo is being built to help teams inspect what draws predicted visual attention 
 
 ## Status
 
-The local Python environment is set up and verified: DeepGaze IIE imports successfully, and the supplied JPEG decodes correctly. Model loading, inference, and the web application have not been implemented yet. The capabilities and architecture below describe the planned product.
+The Python environment and image loader are implemented. The loader validates static PNG/JPEG content, corrects EXIF orientation, and composites transparency onto white to return an independent RGB image. Eleven focused loader tests pass. Model loading, inference, and the web application have not been implemented yet. The capabilities and architecture below describe the planned product.
 
 ## First milestone
 
@@ -55,3 +55,14 @@ Keep local ads, generated results, model weights, secrets, and installed depende
 The workflow is inspired by [Pixel](https://github.com/EnesYilmazcode/Pixel). The planned prediction model is [DeepGaze IIE](https://github.com/matthias-k/DeepGaze), by Linardos, Kümmerer, Press, and Bethge.
 
 Veyo's application and evaluation work will build on that research; it does not claim to have developed or trained DeepGaze.
+
+## Check the image loader
+
+From the repository root:
+
+```sh
+cd backend
+.venv/bin/python -m unittest discover -s tests -v
+```
+
+`veyo.images.load_image(path)` returns an RGB Pillow image at its oriented dimensions. It does not resize, alter the source file, or run the model. See [the image-loader decision](docs/decisions/0002-canonical-image-loader.md) for the contract and remaining upload concerns.
