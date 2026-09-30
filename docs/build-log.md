@@ -81,3 +81,13 @@ Limits: the box includes background; this value is not an ad performance or CTR 
 Collaboration preference reaffirmed: one small implementation, explain what it does, stop for review, and present meaningful architecture alternatives for the user to choose before implementing them. User owns Git mutations. Suggested checkpoint commit: `feat: add validated rectangle attention scoring`.
 
 Next review: understand [top:bottom, left:right], then choose whether the next small increment records a reproducible target/score file or displays the aligned heatmap. Do not implement either before that checkpoint.
+
+## 2026-09-30 — Local PostgreSQL in Docker
+
+User chose PostgreSQL rather than intermediate JSON score records, and Docker for local setup. Added compose.yaml, a sanitized .env.example, an ignored .env with a random local password, database usage documentation and decision 0005. One PostgreSQL 18 Bookworm service runs on localhost:5432, with a named volume and readiness check. No application tables, migrations, Python database dependencies or AWS resources were added.
+
+Verified Docker engine access, Compose configuration, ignored secret file, healthy startup and SQL connectivity. Running version is PostgreSQL 18.6 on ARM64. A disposable test row survived forced container recreation, demonstrating volume persistence; the test table was then removed and public application table count confirmed zero. Password-authenticated TCP query inside the container passed. Host-side Python connectivity remains unimplemented. Database is left running for development.
+
+Tradeoffs: the image tag permits minor updates, a volume is not a backup, and the initial local account is a superuser rather than a future restricted application account. PostgreSQL initialization environment variables do not change credentials in an existing volume.
+
+Stop here for user inspection of compose.yaml and Docker Desktop. Next checkpoint: review the first table and migration approach before adding application schema. User owns staging/commits/pushes. Suggested commit: chore: add local PostgreSQL with Docker Compose.

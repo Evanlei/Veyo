@@ -81,3 +81,7 @@ Choose a new output directory for every run. The first run downloads upstream pr
 The output directory contains `input.png` (canonical image), `probability.npy` (numerical H x W probability grid), and `report.json` (settings, identity hashes, dimensions and timing). A completed report is written last. There is no overlay or target score yet.
 
 Inference uses CPU, four threads by default, a uniform center-bias input, and no external resizing. See [the inference decision](docs/decisions/0003-real-inference.md). These results are model predictions; the successful run establishes pipeline mechanics, not accuracy on ads.
+
+## Local database
+
+PostgreSQL can now run locally through Docker Compose with persistent storage. See [database setup and lifecycle](docs/database.md). The database has no application tables or Python integration yet.
