@@ -18,7 +18,7 @@ if [[ "$(gcloud billing projects describe "$PROJECT_ID" --format='value(billingE
   echo "Link a billing account to $PROJECT_ID before deploying the inference service." >&2
   exit 2
 fi
-gcloud services enable run.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com storage.googleapis.com --project "$PROJECT_ID"
+gcloud services enable run.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com storage.googleapis.com iam.googleapis.com serviceusage.googleapis.com --project "$PROJECT_ID"
 gcloud artifacts repositories describe veyo --location "$REGION" --project "$PROJECT_ID" >/dev/null 2>&1 || \
   gcloud artifacts repositories create veyo --repository-format docker --location "$REGION" --project "$PROJECT_ID"
 gcloud storage buckets describe "gs://$BUCKET" --project "$PROJECT_ID" >/dev/null 2>&1 || \
@@ -36,11 +36,29 @@ gcloud projects add-iam-policy-binding "$PROJECT_ID" --member "serviceAccount:$B
 BUILD_ID="$(gcloud builds submit --config cloudbuild.yaml --project "$PROJECT_ID" --async \
   --service-account "projects/$PROJECT_ID/serviceAccounts/$BUILDER" \
   --gcs-source-staging-dir "gs://$BUILD_BUCKET/source" --format='value(id)')"
-gcloud builds log "$BUILD_ID" --stream --project "$PROJECT_ID"
-if [[ "$(gcloud builds describe "$BUILD_ID" --project "$PROJECT_ID" --format='value(status)')" != SUCCESS ]]; then
-  echo "Container build $BUILD_ID did not succeed; deployment stopped." >&2
-  exit 1
-fi
+gcloud builds describe "$BUILD_ID" --project "$PROJECT_ID" --format='value(logUrl)'
+# Stable `builds log --stream` only follows Cloud Storage logs. This build writes
+# to Cloud Logging, so wait on the build status itself before deploying its image.
+build_deadline="$(( $(date +%s) + 2100 ))"
+previous_status=""
+while true; do
+  build_status="$(gcloud builds describe "$BUILD_ID" --project "$PROJECT_ID" --format='value(status)')"
+  if [[ "$build_status" != "$previous_status" ]]; then
+    echo "Container build $BUILD_ID: $build_status"
+    previous_status="$build_status"
+  fi
+  case "$build_status" in
+    SUCCESS) break ;;
+    FAILURE|INTERNAL_ERROR|TIMEOUT|CANCELLED|EXPIRED)
+      echo "Container build failed; deployment stopped." >&2
+      exit 1 ;;
+  esac
+  if [[ "$(date +%s)" -ge "$build_deadline" ]]; then
+    echo "Stopped waiting for build $BUILD_ID; inspect its status before continuing." >&2
+    exit 1
+  fi
+  sleep 10
+done
 IMAGE="${REGION}-docker.pkg.dev/${PROJECT_ID}/veyo/api:${BUILD_ID}"
 gcloud run deploy veyo-api --image "$IMAGE" --project "$PROJECT_ID" --region "$REGION" \
   --service-account "$RUNTIME" --allow-unauthenticated --cpu 2 --memory 8Gi \
