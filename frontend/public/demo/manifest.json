@@ -1,0 +1,1419 @@
+{
+  "version": 1,
+  "mode": "recorded",
+  "recorded_at": "2026-10-24T18:58:22.596202+00:00",
+  "model": {
+    "model": "DeepGaze IIE",
+    "centerbias": "uniform",
+    "device": "cpu",
+    "preprocessing": "exif-white-rgb-max1600-v1",
+    "version": 1,
+    "package_version": "1.2.1",
+    "source_commit": "c7db17e2d1d7ea6468ffdee2cfaddf141095dcff"
+  },
+  "projects": [
+    {
+      "id": "eea487b850a759da968cea9ae44daa89",
+      "name": "Forma \u2014 Everyday essentials",
+      "created_at": "2026-10-24T18:58:22.627137+00:00",
+      "archived": false,
+      "assets": [
+        {
+          "id": "e0a7850c46b05c1f975bb2d6b91752cb",
+          "project_id": "eea487b850a759da968cea9ae44daa89",
+          "created_at": "2026-10-24T18:58:22.868647+00:00",
+          "label": "Brighter products",
+          "width": 900,
+          "height": 1125,
+          "sha256": "f39007616249e818e6b458c739d12f3459ace36f1ae5c2c8cc9a91908f0dd313",
+          "parent_id": "adce1daeccce515da4832986942a4638",
+          "targets": [
+            {
+              "id": "products",
+              "label": "Products",
+              "role": "product",
+              "box": [
+                175,
+                345,
+                735,
+                930
+              ],
+              "priority": 3
+            },
+            {
+              "id": "headline",
+              "label": "Headline",
+              "role": "headline",
+              "box": [
+                50,
+                170,
+                825,
+                310
+              ],
+              "priority": 2
+            },
+            {
+              "id": "brand",
+              "label": "Brand",
+              "role": "logo",
+              "box": [
+                48,
+                40,
+                300,
+                135
+              ],
+              "priority": 1
+            }
+          ],
+          "confirmed": true,
+          "provenance": {
+            "changed_pixel_share": 0.31990814814814816,
+            "mean_absolute_change": 6.914281481481481,
+            "dimensions_preserved": true,
+            "kind": "controlled-adjustment",
+            "settings": {
+              "label": "Brighter products",
+              "brightness": 1.2,
+              "contrast": 1,
+              "saturation": 1,
+              "sharpness": 1,
+              "target_id": "products"
+            }
+          }
+        },
+        {
+          "id": "adce1daeccce515da4832986942a4638",
+          "project_id": "eea487b850a759da968cea9ae44daa89",
+          "created_at": "2026-10-24T18:58:22.637320+00:00",
+          "label": "Original",
+          "width": 900,
+          "height": 1125,
+          "sha256": "da67d9eb61d78c95c66de7dda924dc89da84bbc353f6ff772320615f1fb29137",
+          "parent_id": null,
+          "targets": [
+            {
+              "id": "products",
+              "label": "Products",
+              "role": "product",
+              "box": [
+                175,
+                345,
+                735,
+                930
+              ],
+              "priority": 3
+            },
+            {
+              "id": "headline",
+              "label": "Headline",
+              "role": "headline",
+              "box": [
+                50,
+                170,
+                825,
+                310
+              ],
+              "priority": 2
+            },
+            {
+              "id": "brand",
+              "label": "Brand",
+              "role": "logo",
+              "box": [
+                48,
+                40,
+                300,
+                135
+              ],
+              "priority": 1
+            }
+          ],
+          "confirmed": true,
+          "provenance": {
+            "kind": "sample",
+            "sample": "forma",
+            "source_sha256": "00806191d2b97a1b3575ec02f22b0d4d70755dcc1fd114a529ea8100e7195e07",
+            "source_width": 900,
+            "source_height": 1125,
+            "resized": false
+          }
+        }
+      ],
+      "runs": [
+        {
+          "id": "5d3c1bd4990152e780364981cd15a161",
+          "project_id": "eea487b850a759da968cea9ae44daa89",
+          "asset_id": "e0a7850c46b05c1f975bb2d6b91752cb",
+          "created_at": "2026-10-24T18:58:22.894630+00:00",
+          "status": "completed",
+          "input_sha256": "f39007616249e818e6b458c739d12f3459ace36f1ae5c2c8cc9a91908f0dd313",
+          "width": 900,
+          "height": 1125,
+          "targets": [
+            {
+              "id": "products",
+              "label": "Products",
+              "role": "product",
+              "box": [
+                175,
+                345,
+                735,
+                930
+              ],
+              "priority": 3
+            },
+            {
+              "id": "headline",
+              "label": "Headline",
+              "role": "headline",
+              "box": [
+                50,
+                170,
+                825,
+                310
+              ],
+              "priority": 2
+            },
+            {
+              "id": "brand",
+              "label": "Brand",
+              "role": "logo",
+              "box": [
+                48,
+                40,
+                300,
+                135
+              ],
+              "priority": 1
+            }
+          ],
+          "completed_at": "2026-10-24T18:58:23.033159+00:00",
+          "metrics": {
+            "targets": [
+              {
+                "id": "products",
+                "label": "Products",
+                "role": "product",
+                "box": [
+                  175,
+                  345,
+                  735,
+                  930
+                ],
+                "priority": 3,
+                "attention_share": 0.23837504608330815,
+                "area_share": 0.32355555555555554,
+                "relative_attention": 0.7367360627574772
+              },
+              {
+                "id": "headline",
+                "label": "Headline",
+                "role": "headline",
+                "box": [
+                  50,
+                  170,
+                  825,
+                  310
+                ],
+                "priority": 2,
+                "attention_share": 0.3422679637692596,
+                "area_share": 0.10716049382716049,
+                "relative_attention": 3.1939752379389437
+              },
+              {
+                "id": "brand",
+                "label": "Brand",
+                "role": "logo",
+                "box": [
+                  48,
+                  40,
+                  300,
+                  135
+                ],
+                "priority": 1,
+                "attention_share": 0.09743268604892968,
+                "area_share": 0.023644444444444444,
+                "relative_attention": 4.120743300941575
+              }
+            ],
+            "attention_share": 0.6780756959014973,
+            "area_share": 0.4543604938271605,
+            "overlap_note": "Totals count overlapping pixels once."
+          },
+          "model": {
+            "model": "DeepGaze IIE",
+            "centerbias": "uniform",
+            "device": "cpu",
+            "preprocessing": "exif-white-rgb-max1600-v1",
+            "version": 1,
+            "package_version": "1.2.1",
+            "source_commit": "c7db17e2d1d7ea6468ffdee2cfaddf141095dcff"
+          },
+          "cached": true,
+          "seconds": 0.138,
+          "competing_regions": [
+            {
+              "box": [
+                108,
+                1008,
+                225,
+                1125
+              ],
+              "attention_share": 0.04894780591516945,
+              "label": "Competing region 1"
+            },
+            {
+              "box": [
+                668,
+                40,
+                785,
+                157
+              ],
+              "attention_share": 0.0386531788940923,
+              "label": "Competing region 2"
+            },
+            {
+              "box": [
+                709,
+                1008,
+                826,
+                1125
+              ],
+              "attention_share": 0.03791402238301271,
+              "label": "Competing region 3"
+            }
+          ],
+          "interpretation": "Model-predicted fixation probabilities, not measured attention, clicks, or sales."
+        },
+        {
+          "id": "aa3dd25fca9350afaee4eb7d62eeefc3",
+          "project_id": "eea487b850a759da968cea9ae44daa89",
+          "asset_id": "adce1daeccce515da4832986942a4638",
+          "created_at": "2026-10-24T18:58:22.655995+00:00",
+          "status": "completed",
+          "input_sha256": "da67d9eb61d78c95c66de7dda924dc89da84bbc353f6ff772320615f1fb29137",
+          "width": 900,
+          "height": 1125,
+          "targets": [
+            {
+              "id": "products",
+              "label": "Products",
+              "role": "product",
+              "box": [
+                175,
+                345,
+                735,
+                930
+              ],
+              "priority": 3
+            },
+            {
+              "id": "headline",
+              "label": "Headline",
+              "role": "headline",
+              "box": [
+                50,
+                170,
+                825,
+                310
+              ],
+              "priority": 2
+            },
+            {
+              "id": "brand",
+              "label": "Brand",
+              "role": "logo",
+              "box": [
+                48,
+                40,
+                300,
+                135
+              ],
+              "priority": 1
+            }
+          ],
+          "completed_at": "2026-10-24T18:58:22.817987+00:00",
+          "metrics": {
+            "targets": [
+              {
+                "id": "products",
+                "label": "Products",
+                "role": "product",
+                "box": [
+                  175,
+                  345,
+                  735,
+                  930
+                ],
+                "priority": 3,
+                "attention_share": 0.23413335291553475,
+                "area_share": 0.32355555555555554,
+                "relative_attention": 0.7236264341482874
+              },
+              {
+                "id": "headline",
+                "label": "Headline",
+                "role": "headline",
+                "box": [
+                  50,
+                  170,
+                  825,
+                  310
+                ],
+                "priority": 2,
+                "attention_share": 0.3373853361243826,
+                "area_share": 0.10716049382716049,
+                "relative_attention": 3.148411546782833
+              },
+              {
+                "id": "brand",
+                "label": "Brand",
+                "role": "logo",
+                "box": [
+                  48,
+                  40,
+                  300,
+                  135
+                ],
+                "priority": 1,
+                "attention_share": 0.09919390681441058,
+                "area_share": 0.023644444444444444,
+                "relative_attention": 4.195231021286162
+              }
+            ],
+            "attention_share": 0.670712595854328,
+            "area_share": 0.4543604938271605,
+            "overlap_note": "Totals count overlapping pixels once."
+          },
+          "model": {
+            "model": "DeepGaze IIE",
+            "centerbias": "uniform",
+            "device": "cpu",
+            "preprocessing": "exif-white-rgb-max1600-v1",
+            "version": 1,
+            "package_version": "1.2.1",
+            "source_commit": "c7db17e2d1d7ea6468ffdee2cfaddf141095dcff"
+          },
+          "cached": true,
+          "seconds": 0.162,
+          "competing_regions": [
+            {
+              "box": [
+                108,
+                1008,
+                225,
+                1125
+              ],
+              "attention_share": 0.05179931386760913,
+              "label": "Competing region 1"
+            },
+            {
+              "box": [
+                709,
+                1008,
+                826,
+                1125
+              ],
+              "attention_share": 0.041373247922914816,
+              "label": "Competing region 2"
+            },
+            {
+              "box": [
+                667,
+                40,
+                784,
+                157
+              ],
+              "attention_share": 0.03894575581241577,
+              "label": "Competing region 3"
+            }
+          ],
+          "interpretation": "Model-predicted fixation probabilities, not measured attention, clicks, or sales."
+        }
+      ]
+    },
+    {
+      "id": "9787bf5317d25dbf86d7438534fe68a8",
+      "name": "Fieldwork \u2014 A better morning",
+      "created_at": "2026-10-24T18:58:23.092043+00:00",
+      "archived": false,
+      "assets": [
+        {
+          "id": "83c09394144f5bcbac7d0149a3783b2a",
+          "project_id": "9787bf5317d25dbf86d7438534fe68a8",
+          "created_at": "2026-10-24T18:58:23.345186+00:00",
+          "label": "Brighter coffee bag",
+          "width": 900,
+          "height": 1125,
+          "sha256": "e57b740084c49add089398b08418950e1ee2222c7a0424e3945c90a724021502",
+          "parent_id": "922839825ba555f284cdf58293805ec0",
+          "targets": [
+            {
+              "id": "product",
+              "label": "Coffee bag",
+              "role": "product",
+              "box": [
+                240,
+                375,
+                660,
+                955
+              ],
+              "priority": 3
+            },
+            {
+              "id": "headline",
+              "label": "Headline",
+              "role": "headline",
+              "box": [
+                50,
+                170,
+                845,
+                320
+              ],
+              "priority": 2
+            },
+            {
+              "id": "brand",
+              "label": "Brand",
+              "role": "logo",
+              "box": [
+                48,
+                45,
+                425,
+                115
+              ],
+              "priority": 1
+            }
+          ],
+          "confirmed": true,
+          "provenance": {
+            "changed_pixel_share": 0.24056691358024693,
+            "mean_absolute_change": 3.9739953909465022,
+            "dimensions_preserved": true,
+            "kind": "controlled-adjustment",
+            "settings": {
+              "label": "Brighter coffee bag",
+              "brightness": 1.2,
+              "contrast": 1,
+              "saturation": 1,
+              "sharpness": 1,
+              "target_id": "product"
+            }
+          }
+        },
+        {
+          "id": "922839825ba555f284cdf58293805ec0",
+          "project_id": "9787bf5317d25dbf86d7438534fe68a8",
+          "created_at": "2026-10-24T18:58:23.103391+00:00",
+          "label": "Original",
+          "width": 900,
+          "height": 1125,
+          "sha256": "4e281c2ea67332a7799b08ad12180c3c52fd842c3acdab5ced9f773b4e21e262",
+          "parent_id": null,
+          "targets": [
+            {
+              "id": "product",
+              "label": "Coffee bag",
+              "role": "product",
+              "box": [
+                240,
+                375,
+                660,
+                955
+              ],
+              "priority": 3
+            },
+            {
+              "id": "headline",
+              "label": "Headline",
+              "role": "headline",
+              "box": [
+                50,
+                170,
+                845,
+                320
+              ],
+              "priority": 2
+            },
+            {
+              "id": "brand",
+              "label": "Brand",
+              "role": "logo",
+              "box": [
+                48,
+                45,
+                425,
+                115
+              ],
+              "priority": 1
+            }
+          ],
+          "confirmed": true,
+          "provenance": {
+            "kind": "sample",
+            "sample": "fieldwork",
+            "source_sha256": "cb72309005f3db2bd7292c452b321316b698369b6e9822cbe637327b0766b555",
+            "source_width": 900,
+            "source_height": 1125,
+            "resized": false
+          }
+        }
+      ],
+      "runs": [
+        {
+          "id": "fc80cd5ab53e5959a6ea41bb5efd0d18",
+          "project_id": "9787bf5317d25dbf86d7438534fe68a8",
+          "asset_id": "83c09394144f5bcbac7d0149a3783b2a",
+          "created_at": "2026-10-24T18:58:23.348678+00:00",
+          "status": "completed",
+          "input_sha256": "e57b740084c49add089398b08418950e1ee2222c7a0424e3945c90a724021502",
+          "width": 900,
+          "height": 1125,
+          "targets": [
+            {
+              "id": "product",
+              "label": "Coffee bag",
+              "role": "product",
+              "box": [
+                240,
+                375,
+                660,
+                955
+              ],
+              "priority": 3
+            },
+            {
+              "id": "headline",
+              "label": "Headline",
+              "role": "headline",
+              "box": [
+                50,
+                170,
+                845,
+                320
+              ],
+              "priority": 2
+            },
+            {
+              "id": "brand",
+              "label": "Brand",
+              "role": "logo",
+              "box": [
+                48,
+                45,
+                425,
+                115
+              ],
+              "priority": 1
+            }
+          ],
+          "completed_at": "2026-10-24T18:58:28.619646+00:00",
+          "metrics": {
+            "targets": [
+              {
+                "id": "product",
+                "label": "Coffee bag",
+                "role": "product",
+                "box": [
+                  240,
+                  375,
+                  660,
+                  955
+                ],
+                "priority": 3,
+                "attention_share": 0.3620805012369197,
+                "area_share": 0.24059259259259258,
+                "relative_attention": 1.5049528222593647
+              },
+              {
+                "id": "headline",
+                "label": "Headline",
+                "role": "headline",
+                "box": [
+                  50,
+                  170,
+                  845,
+                  320
+                ],
+                "priority": 2,
+                "attention_share": 0.2689686189031991,
+                "area_share": 0.11777777777777777,
+                "relative_attention": 2.2836958208762193
+              },
+              {
+                "id": "brand",
+                "label": "Brand",
+                "role": "logo",
+                "box": [
+                  48,
+                  45,
+                  425,
+                  115
+                ],
+                "priority": 1,
+                "attention_share": 0.09207058495884105,
+                "area_share": 0.026064197530864197,
+                "relative_attention": 3.532454235347729
+              }
+            ],
+            "attention_share": 0.7231197050989597,
+            "area_share": 0.3844345679012346,
+            "overlap_note": "Totals count overlapping pixels once."
+          },
+          "model": {
+            "model": "DeepGaze IIE",
+            "centerbias": "uniform",
+            "device": "cpu",
+            "preprocessing": "exif-white-rgb-max1600-v1",
+            "version": 1,
+            "package_version": "1.2.1",
+            "source_commit": "c7db17e2d1d7ea6468ffdee2cfaddf141095dcff"
+          },
+          "cached": false,
+          "seconds": 5.271,
+          "competing_regions": [
+            {
+              "box": [
+                149,
+                1008,
+                266,
+                1125
+              ],
+              "attention_share": 0.044437801157229506,
+              "label": "Competing region 1"
+            },
+            {
+              "box": [
+                266,
+                1008,
+                383,
+                1125
+              ],
+              "attention_share": 0.032709926634987285,
+              "label": "Competing region 2"
+            },
+            {
+              "box": [
+                649,
+                41,
+                766,
+                158
+              ],
+              "attention_share": 0.031940086807190064,
+              "label": "Competing region 3"
+            }
+          ],
+          "interpretation": "Model-predicted fixation probabilities, not measured attention, clicks, or sales."
+        },
+        {
+          "id": "37eb28de88cf545e8fa50d00e35be109",
+          "project_id": "9787bf5317d25dbf86d7438534fe68a8",
+          "asset_id": "922839825ba555f284cdf58293805ec0",
+          "created_at": "2026-10-24T18:58:23.127012+00:00",
+          "status": "completed",
+          "input_sha256": "4e281c2ea67332a7799b08ad12180c3c52fd842c3acdab5ced9f773b4e21e262",
+          "width": 900,
+          "height": 1125,
+          "targets": [
+            {
+              "id": "product",
+              "label": "Coffee bag",
+              "role": "product",
+              "box": [
+                240,
+                375,
+                660,
+                955
+              ],
+              "priority": 3
+            },
+            {
+              "id": "headline",
+              "label": "Headline",
+              "role": "headline",
+              "box": [
+                50,
+                170,
+                845,
+                320
+              ],
+              "priority": 2
+            },
+            {
+              "id": "brand",
+              "label": "Brand",
+              "role": "logo",
+              "box": [
+                48,
+                45,
+                425,
+                115
+              ],
+              "priority": 1
+            }
+          ],
+          "completed_at": "2026-10-24T18:58:23.294858+00:00",
+          "metrics": {
+            "targets": [
+              {
+                "id": "product",
+                "label": "Coffee bag",
+                "role": "product",
+                "box": [
+                  240,
+                  375,
+                  660,
+                  955
+                ],
+                "priority": 3,
+                "attention_share": 0.3721385223846302,
+                "area_share": 0.24059259259259258,
+                "relative_attention": 1.5467580209952303
+              },
+              {
+                "id": "headline",
+                "label": "Headline",
+                "role": "headline",
+                "box": [
+                  50,
+                  170,
+                  845,
+                  320
+                ],
+                "priority": 2,
+                "attention_share": 0.2645827732806317,
+                "area_share": 0.11777777777777777,
+                "relative_attention": 2.2464575089864955
+              },
+              {
+                "id": "brand",
+                "label": "Brand",
+                "role": "logo",
+                "box": [
+                  48,
+                  45,
+                  425,
+                  115
+                ],
+                "priority": 1,
+                "attention_share": 0.09084560245923906,
+                "area_share": 0.026064197530864197,
+                "relative_attention": 3.485455569912071
+              }
+            ],
+            "attention_share": 0.7275668981245009,
+            "area_share": 0.3844345679012346,
+            "overlap_note": "Totals count overlapping pixels once."
+          },
+          "model": {
+            "model": "DeepGaze IIE",
+            "centerbias": "uniform",
+            "device": "cpu",
+            "preprocessing": "exif-white-rgb-max1600-v1",
+            "version": 1,
+            "package_version": "1.2.1",
+            "source_commit": "c7db17e2d1d7ea6468ffdee2cfaddf141095dcff"
+          },
+          "cached": true,
+          "seconds": 0.167,
+          "competing_regions": [
+            {
+              "box": [
+                148,
+                1008,
+                265,
+                1125
+              ],
+              "attention_share": 0.04406635804187922,
+              "label": "Competing region 1"
+            },
+            {
+              "box": [
+                265,
+                1008,
+                382,
+                1125
+              ],
+              "attention_share": 0.032707551272872955,
+              "label": "Competing region 2"
+            },
+            {
+              "box": [
+                649,
+                40,
+                766,
+                157
+              ],
+              "attention_share": 0.03086566198337789,
+              "label": "Competing region 3"
+            }
+          ],
+          "interpretation": "Model-predicted fixation probabilities, not measured attention, clicks, or sales."
+        }
+      ]
+    },
+    {
+      "id": "9045105cde7b5db6a9c56b22826e36b6",
+      "name": "Pace \u2014 Find your own rhythm",
+      "created_at": "2026-10-24T18:58:28.671805+00:00",
+      "archived": false,
+      "assets": [
+        {
+          "id": "766d8efa316f53d19be7fb5b4be31dc9",
+          "project_id": "9045105cde7b5db6a9c56b22826e36b6",
+          "created_at": "2026-10-24T18:58:28.908381+00:00",
+          "label": "Brighter headline",
+          "width": 900,
+          "height": 1125,
+          "sha256": "6fdde4b88fee80bcc36acc6322348c2321c973d25a7db4f9f686cb73c0588c52",
+          "parent_id": "bae070c84c6254e28ceb7d64fd4076d9",
+          "targets": [
+            {
+              "id": "headline",
+              "label": "Headline",
+              "role": "headline",
+              "box": [
+                45,
+                178,
+                760,
+                537
+              ],
+              "priority": 3
+            },
+            {
+              "id": "cta",
+              "label": "Call to action",
+              "role": "cta",
+              "box": [
+                50,
+                992,
+                395,
+                1084
+              ],
+              "priority": 2
+            },
+            {
+              "id": "brand",
+              "label": "Brand",
+              "role": "logo",
+              "box": [
+                48,
+                45,
+                295,
+                135
+              ],
+              "priority": 1
+            }
+          ],
+          "confirmed": true,
+          "provenance": {
+            "changed_pixel_share": 0.25349234567901235,
+            "mean_absolute_change": 5.712928724279835,
+            "dimensions_preserved": true,
+            "kind": "controlled-adjustment",
+            "settings": {
+              "label": "Brighter headline",
+              "brightness": 1.2,
+              "contrast": 1,
+              "saturation": 1,
+              "sharpness": 1,
+              "target_id": "headline"
+            }
+          }
+        },
+        {
+          "id": "bae070c84c6254e28ceb7d64fd4076d9",
+          "project_id": "9045105cde7b5db6a9c56b22826e36b6",
+          "created_at": "2026-10-24T18:58:28.682707+00:00",
+          "label": "Original",
+          "width": 900,
+          "height": 1125,
+          "sha256": "2ffd931996556a0485743dcd2403b2e8acce2eafaee6de38328d3809a3febb3d",
+          "parent_id": null,
+          "targets": [
+            {
+              "id": "headline",
+              "label": "Headline",
+              "role": "headline",
+              "box": [
+                45,
+                178,
+                760,
+                537
+              ],
+              "priority": 3
+            },
+            {
+              "id": "cta",
+              "label": "Call to action",
+              "role": "cta",
+              "box": [
+                50,
+                992,
+                395,
+                1084
+              ],
+              "priority": 2
+            },
+            {
+              "id": "brand",
+              "label": "Brand",
+              "role": "logo",
+              "box": [
+                48,
+                45,
+                295,
+                135
+              ],
+              "priority": 1
+            }
+          ],
+          "confirmed": true,
+          "provenance": {
+            "kind": "sample",
+            "sample": "pace",
+            "source_sha256": "65e7d0f2b03ade8dd8c6413d378d9a0a54747b8e2014d2700c3203cde6a2f9e5",
+            "source_width": 900,
+            "source_height": 1125,
+            "resized": false
+          }
+        }
+      ],
+      "runs": [
+        {
+          "id": "31f93e472df6521eb171319e5c0b7fac",
+          "project_id": "9045105cde7b5db6a9c56b22826e36b6",
+          "asset_id": "766d8efa316f53d19be7fb5b4be31dc9",
+          "created_at": "2026-10-24T18:58:28.912351+00:00",
+          "status": "completed",
+          "input_sha256": "6fdde4b88fee80bcc36acc6322348c2321c973d25a7db4f9f686cb73c0588c52",
+          "width": 900,
+          "height": 1125,
+          "targets": [
+            {
+              "id": "headline",
+              "label": "Headline",
+              "role": "headline",
+              "box": [
+                45,
+                178,
+                760,
+                537
+              ],
+              "priority": 3
+            },
+            {
+              "id": "cta",
+              "label": "Call to action",
+              "role": "cta",
+              "box": [
+                50,
+                992,
+                395,
+                1084
+              ],
+              "priority": 2
+            },
+            {
+              "id": "brand",
+              "label": "Brand",
+              "role": "logo",
+              "box": [
+                48,
+                45,
+                295,
+                135
+              ],
+              "priority": 1
+            }
+          ],
+          "completed_at": "2026-10-24T18:58:30.921062+00:00",
+          "metrics": {
+            "targets": [
+              {
+                "id": "headline",
+                "label": "Headline",
+                "role": "headline",
+                "box": [
+                  45,
+                  178,
+                  760,
+                  537
+                ],
+                "priority": 3,
+                "attention_share": 0.37087523612129675,
+                "area_share": 0.25351604938271605,
+                "relative_attention": 1.4629260633570835
+              },
+              {
+                "id": "cta",
+                "label": "Call to action",
+                "role": "cta",
+                "box": [
+                  50,
+                  992,
+                  395,
+                  1084
+                ],
+                "priority": 2,
+                "attention_share": 0.16935734816729742,
+                "area_share": 0.031348148148148146,
+                "relative_attention": 5.402467391915207
+              },
+              {
+                "id": "brand",
+                "label": "Brand",
+                "role": "logo",
+                "box": [
+                  48,
+                  45,
+                  295,
+                  135
+                ],
+                "priority": 1,
+                "attention_share": 0.09165762248190232,
+                "area_share": 0.021955555555555555,
+                "relative_attention": 4.1746892830825955
+              }
+            ],
+            "attention_share": 0.6318902067704966,
+            "area_share": 0.30681975308641973,
+            "overlap_note": "Totals count overlapping pixels once."
+          },
+          "model": {
+            "model": "DeepGaze IIE",
+            "centerbias": "uniform",
+            "device": "cpu",
+            "preprocessing": "exif-white-rgb-max1600-v1",
+            "version": 1,
+            "package_version": "1.2.1",
+            "source_commit": "c7db17e2d1d7ea6468ffdee2cfaddf141095dcff"
+          },
+          "cached": false,
+          "seconds": 2.008,
+          "competing_regions": [
+            {
+              "box": [
+                621,
+                630,
+                738,
+                747
+              ],
+              "attention_share": 0.089615619690403,
+              "label": "Competing region 1"
+            },
+            {
+              "box": [
+                652,
+                42,
+                769,
+                159
+              ],
+              "attention_share": 0.04580207103586597,
+              "label": "Competing region 2"
+            },
+            {
+              "box": [
+                653,
+                1008,
+                770,
+                1125
+              ],
+              "attention_share": 0.01830758192025651,
+              "label": "Competing region 3"
+            }
+          ],
+          "interpretation": "Model-predicted fixation probabilities, not measured attention, clicks, or sales."
+        },
+        {
+          "id": "592c91aeb69e597d98428a341781b614",
+          "project_id": "9045105cde7b5db6a9c56b22826e36b6",
+          "asset_id": "bae070c84c6254e28ceb7d64fd4076d9",
+          "created_at": "2026-10-24T18:58:28.702474+00:00",
+          "status": "completed",
+          "input_sha256": "2ffd931996556a0485743dcd2403b2e8acce2eafaee6de38328d3809a3febb3d",
+          "width": 900,
+          "height": 1125,
+          "targets": [
+            {
+              "id": "headline",
+              "label": "Headline",
+              "role": "headline",
+              "box": [
+                45,
+                178,
+                760,
+                537
+              ],
+              "priority": 3
+            },
+            {
+              "id": "cta",
+              "label": "Call to action",
+              "role": "cta",
+              "box": [
+                50,
+                992,
+                395,
+                1084
+              ],
+              "priority": 2
+            },
+            {
+              "id": "brand",
+              "label": "Brand",
+              "role": "logo",
+              "box": [
+                48,
+                45,
+                295,
+                135
+              ],
+              "priority": 1
+            }
+          ],
+          "completed_at": "2026-10-24T18:58:28.852079+00:00",
+          "metrics": {
+            "targets": [
+              {
+                "id": "headline",
+                "label": "Headline",
+                "role": "headline",
+                "box": [
+                  45,
+                  178,
+                  760,
+                  537
+                ],
+                "priority": 3,
+                "attention_share": 0.3553151666169469,
+                "area_share": 0.25351604938271605,
+                "relative_attention": 1.4015490044204326
+              },
+              {
+                "id": "cta",
+                "label": "Call to action",
+                "role": "cta",
+                "box": [
+                  50,
+                  992,
+                  395,
+                  1084
+                ],
+                "priority": 2,
+                "attention_share": 0.16824806324977296,
+                "area_share": 0.031348148148148146,
+                "relative_attention": 5.367081412740867
+              },
+              {
+                "id": "brand",
+                "label": "Brand",
+                "role": "logo",
+                "box": [
+                  48,
+                  45,
+                  295,
+                  135
+                ],
+                "priority": 1,
+                "attention_share": 0.09040672159612125,
+                "area_share": 0.021955555555555555,
+                "relative_attention": 4.1177150524549155
+              }
+            ],
+            "attention_share": 0.6139699514628412,
+            "area_share": 0.30681975308641973,
+            "overlap_note": "Totals count overlapping pixels once."
+          },
+          "model": {
+            "model": "DeepGaze IIE",
+            "centerbias": "uniform",
+            "device": "cpu",
+            "preprocessing": "exif-white-rgb-max1600-v1",
+            "version": 1,
+            "package_version": "1.2.1",
+            "source_commit": "c7db17e2d1d7ea6468ffdee2cfaddf141095dcff"
+          },
+          "cached": true,
+          "seconds": 0.149,
+          "competing_regions": [
+            {
+              "box": [
+                621,
+                629,
+                738,
+                746
+              ],
+              "attention_share": 0.09529215934194765,
+              "label": "Competing region 1"
+            },
+            {
+              "box": [
+                656,
+                42,
+                773,
+                159
+              ],
+              "attention_share": 0.04919363630354508,
+              "label": "Competing region 2"
+            },
+            {
+              "box": [
+                653,
+                1008,
+                770,
+                1125
+              ],
+              "attention_share": 0.018470376291631202,
+              "label": "Competing region 3"
+            }
+          ],
+          "interpretation": "Model-predicted fixation probabilities, not measured attention, clicks, or sales."
+        }
+      ]
+    }
+  ],
+  "samples": {
+    "forma": "eea487b850a759da968cea9ae44daa89",
+    "fieldwork": "9787bf5317d25dbf86d7438534fe68a8",
+    "pace": "9045105cde7b5db6a9c56b22826e36b6"
+  },
+  "files": {
+    "/assets/e0a7850c46b05c1f975bb2d6b91752cb/image": {
+      "url": "/demo/assets/e0a7850c46b05c1f975bb2d6b91752cb.png",
+      "sha256": "f39007616249e818e6b458c739d12f3459ace36f1ae5c2c8cc9a91908f0dd313",
+      "bytes": 55913
+    },
+    "/assets/adce1daeccce515da4832986942a4638/image": {
+      "url": "/demo/assets/adce1daeccce515da4832986942a4638.png",
+      "sha256": "da67d9eb61d78c95c66de7dda924dc89da84bbc353f6ff772320615f1fb29137",
+      "bytes": 54563
+    },
+    "/runs/5d3c1bd4990152e780364981cd15a161/heatmap.png": {
+      "url": "/demo/runs/5d3c1bd4990152e780364981cd15a161/heatmap.png",
+      "sha256": "234a96ca10e624218c0f951c559ac7d49dd1b1e89ea5af630b96da1fa1082ed7",
+      "bytes": 179993
+    },
+    "/runs/5d3c1bd4990152e780364981cd15a161/overlay.png": {
+      "url": "/demo/runs/5d3c1bd4990152e780364981cd15a161/overlay.png",
+      "sha256": "6b77d3b962bb557adf3196547f5e322aed1ccd2e70f0bf62df4d5f02acee0f59",
+      "bytes": 172560
+    },
+    "/runs/5d3c1bd4990152e780364981cd15a161/report.json": {
+      "url": "/demo/runs/5d3c1bd4990152e780364981cd15a161/report.json",
+      "sha256": "b94492fe9237a275689d145b5bae87d29fd52225c5c99c507e430204bf16aa96",
+      "bytes": 3124
+    },
+    "/runs/aa3dd25fca9350afaee4eb7d62eeefc3/heatmap.png": {
+      "url": "/demo/runs/aa3dd25fca9350afaee4eb7d62eeefc3/heatmap.png",
+      "sha256": "9a25cac47ee00165a5660234ce9892d8d04f5dcacfffdbe41190a86a1b11381d",
+      "bytes": 178849
+    },
+    "/runs/aa3dd25fca9350afaee4eb7d62eeefc3/overlay.png": {
+      "url": "/demo/runs/aa3dd25fca9350afaee4eb7d62eeefc3/overlay.png",
+      "sha256": "9689e075580619b73cf78b57694f6e891e638e51f2fc4dbe747ce05942256ee1",
+      "bytes": 170424
+    },
+    "/runs/aa3dd25fca9350afaee4eb7d62eeefc3/report.json": {
+      "url": "/demo/runs/aa3dd25fca9350afaee4eb7d62eeefc3/report.json",
+      "sha256": "7b584c56fe3945a496389013b04236b2890dacbc03f5ecc4688b0bdceeab1961",
+      "bytes": 3124
+    },
+    "/projects/eea487b850a759da968cea9ae44daa89/export": {
+      "url": "/demo/projects/eea487b850a759da968cea9ae44daa89.zip",
+      "sha256": "56eb14fd8e30de12189c8e875feaa8346e97cbdda52923e8f623dee39f1ff0a2",
+      "bytes": 791387
+    },
+    "/assets/83c09394144f5bcbac7d0149a3783b2a/image": {
+      "url": "/demo/assets/83c09394144f5bcbac7d0149a3783b2a.png",
+      "sha256": "e57b740084c49add089398b08418950e1ee2222c7a0424e3945c90a724021502",
+      "bytes": 58588
+    },
+    "/assets/922839825ba555f284cdf58293805ec0/image": {
+      "url": "/demo/assets/922839825ba555f284cdf58293805ec0.png",
+      "sha256": "4e281c2ea67332a7799b08ad12180c3c52fd842c3acdab5ced9f773b4e21e262",
+      "bytes": 57631
+    },
+    "/runs/fc80cd5ab53e5959a6ea41bb5efd0d18/heatmap.png": {
+      "url": "/demo/runs/fc80cd5ab53e5959a6ea41bb5efd0d18/heatmap.png",
+      "sha256": "2f817545508003e8f31c3d9a983fcdc9726f9e72ed0b97f7e00ef2c025969fe1",
+      "bytes": 155423
+    },
+    "/runs/fc80cd5ab53e5959a6ea41bb5efd0d18/overlay.png": {
+      "url": "/demo/runs/fc80cd5ab53e5959a6ea41bb5efd0d18/overlay.png",
+      "sha256": "578ace886ce443cb5d080179af64480774c307fca6e0bd0e81c88de277511b19",
+      "bytes": 159066
+    },
+    "/runs/fc80cd5ab53e5959a6ea41bb5efd0d18/report.json": {
+      "url": "/demo/runs/fc80cd5ab53e5959a6ea41bb5efd0d18/report.json",
+      "sha256": "c1da738f61ced595212e393359e4c1f50ccaef251e56ae8924d3064733bb8c6f",
+      "bytes": 3130
+    },
+    "/runs/37eb28de88cf545e8fa50d00e35be109/heatmap.png": {
+      "url": "/demo/runs/37eb28de88cf545e8fa50d00e35be109/heatmap.png",
+      "sha256": "6948210cfb630a95449a403ffd8a800376abdcdb89039ca68139bdb4a596c657",
+      "bytes": 151892
+    },
+    "/runs/37eb28de88cf545e8fa50d00e35be109/overlay.png": {
+      "url": "/demo/runs/37eb28de88cf545e8fa50d00e35be109/overlay.png",
+      "sha256": "a07f500a01f27e64872ba25c932b95caf781407ec07a8224c30a49fd2a5b47ea",
+      "bytes": 154051
+    },
+    "/runs/37eb28de88cf545e8fa50d00e35be109/report.json": {
+      "url": "/demo/runs/37eb28de88cf545e8fa50d00e35be109/report.json",
+      "sha256": "1bfe76765352ef5e46fc1b59ddc536b5ca9f9eaeb5bead8f775813f417f1e8a7",
+      "bytes": 3127
+    },
+    "/projects/9787bf5317d25dbf86d7438534fe68a8/export": {
+      "url": "/demo/projects/9787bf5317d25dbf86d7438534fe68a8.zip",
+      "sha256": "cf2f9edeefacf7f0817c0ce84e7bc7d21f5fa69e0bcb028008ddeec949b9e598",
+      "bytes": 719702
+    },
+    "/assets/766d8efa316f53d19be7fb5b4be31dc9/image": {
+      "url": "/demo/assets/766d8efa316f53d19be7fb5b4be31dc9.png",
+      "sha256": "6fdde4b88fee80bcc36acc6322348c2321c973d25a7db4f9f686cb73c0588c52",
+      "bytes": 51199
+    },
+    "/assets/bae070c84c6254e28ceb7d64fd4076d9/image": {
+      "url": "/demo/assets/bae070c84c6254e28ceb7d64fd4076d9.png",
+      "sha256": "2ffd931996556a0485743dcd2403b2e8acce2eafaee6de38328d3809a3febb3d",
+      "bytes": 50691
+    },
+    "/runs/31f93e472df6521eb171319e5c0b7fac/heatmap.png": {
+      "url": "/demo/runs/31f93e472df6521eb171319e5c0b7fac/heatmap.png",
+      "sha256": "1c4cca43235764a1e129c32678d039f7d14d30901ef4e966f66f752c0e1979e4",
+      "bytes": 163867
+    },
+    "/runs/31f93e472df6521eb171319e5c0b7fac/overlay.png": {
+      "url": "/demo/runs/31f93e472df6521eb171319e5c0b7fac/overlay.png",
+      "sha256": "36141b5b2ecbd2486fd803ff1852a81a17518b94f9302ef0e157b9d5a2e32157",
+      "bytes": 157947
+    },
+    "/runs/31f93e472df6521eb171319e5c0b7fac/report.json": {
+      "url": "/demo/runs/31f93e472df6521eb171319e5c0b7fac/report.json",
+      "sha256": "fdc067f7d5eb6ef50bbe31ecb72ff21e1a938ca867b23c1f138da09af01bb743",
+      "bytes": 3119
+    },
+    "/runs/592c91aeb69e597d98428a341781b614/heatmap.png": {
+      "url": "/demo/runs/592c91aeb69e597d98428a341781b614/heatmap.png",
+      "sha256": "b4806d4357b7dd9cb718a62a92d9e82485043192b6a583e52d14b68025fc63eb",
+      "bytes": 165788
+    },
+    "/runs/592c91aeb69e597d98428a341781b614/overlay.png": {
+      "url": "/demo/runs/592c91aeb69e597d98428a341781b614/overlay.png",
+      "sha256": "e78d03911d17609ee7c74b6584cb18d453815ecc6dcc19c5af14953bf77d14e2",
+      "bytes": 157410
+    },
+    "/runs/592c91aeb69e597d98428a341781b614/report.json": {
+      "url": "/demo/runs/592c91aeb69e597d98428a341781b614/report.json",
+      "sha256": "9b215c1ce5736a69a546c78e4271c5f0ca0b955f7763ef65d292dbf1699f4660",
+      "bytes": 3120
+    },
+    "/projects/9045105cde7b5db6a9c56b22826e36b6/export": {
+      "url": "/demo/projects/9045105cde7b5db6a9c56b22826e36b6.zip",
+      "sha256": "719274a543089d34df532121769ede02fb9eacd365f94f9f5377abe05c73148c",
+      "bytes": 729768
+    }
+  },
+  "notice": "Real DeepGaze IIE results recorded locally on fictional sample ads. No live inference or uploads."
+}
