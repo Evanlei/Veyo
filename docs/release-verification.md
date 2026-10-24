@@ -6,7 +6,7 @@
 | --- | --- |
 | Frontend production build | Strict TypeScript and Vite production build pass. |
 | Frontend math/presentation checks | Six tests pass across target geometry and metric formatting. |
-| Backend contracts and HTTP integration | 47 tests pass, including error propagation, isolation, uploads, history, cache reuse, comparisons, and exports. |
+| Backend contracts and HTTP integration | 50 tests pass, including error propagation, isolation, uploads, history, cache reuse, comparisons, exports, production deep links, asset caching, and API/static route boundaries. |
 | Shipped npm runtime dependencies | `npm audit --omit=dev` reports zero known vulnerabilities. |
 | Desktop interface | Safari renders the library, Figma-based workspace, real heatmap, adjustment dialog, revision workflow, and comparison screen. |
 | Responsive behavior | Comparison controls and image panels stack at a narrower effective viewport using Safari page zoom; zoom restored afterward. This is not a physical mobile-device test. |
@@ -48,26 +48,41 @@ Baseline and revision analyses took 17.404 and 8.784 seconds on the local
 cross-architecture Docker run, not native Google Cloud hardware. The temporary
 verification container was stopped after testing. This incurred no cloud compute.
 
-## Deployment status and remaining verification
+## Unified application verification
 
-The Firebase Hosting, Cloud Build, private GCS storage, service-account roles,
-and Cloud Run deployment source are prepared. The Google Cloud SDK is available
-locally through `npm run cloud -- ...`; the Firebase CLI is installed through npm.
-Deployment shell syntax has been checked.
+After the owner chose to keep cloud spending disabled, the image was updated to
+build and serve React alongside FastAPI and the model. The Linux/amd64 image
+`veyo:unified` builds successfully with Node 24 in its frontend build stage and
+starts as nonroot user `veyo`. No Node or Firebase CLI is needed in the runtime.
 
-Both Firebase and Google Cloud CLIs are now authenticated. The requested Google
-Cloud project `veyo-attention-studio` exists and is owned by the signed-in user.
-Adding Firebase resources returned 403; the Firebase console confirms first-time
-terms acceptance is still required. The existing project is selected in that
-setup form. No billing accounts are available and project billing is disabled.
-No live `web.app` URL has been published yet. Project billing remains disabled;
-no cloud builds, Cloud Run services, or paid storage resources have been created.
-The user has asked about charges, so billing-dependent work is awaiting their
-hosting-cost preference.
+The complete nine-check real-model flow passes at port 18080, saved locally in
+ignored `outputs/unified-container-smoke.json`. Combined attention shares are
+0.6707125865 and 0.6780757550. Observed baseline/revision times were 20.304 and
+8.703 seconds under local CPU emulation; these are not cloud benchmarks.
 
-After the user completes Firebase terms and billing setup, run
-`bash scripts/deploy.sh veyo-attention-studio`, then run the smoke test against
-the deployed URL. See [deployment](deployment.md). The remote GCS adapter and
-hosting integration still require cloud verification. CI configuration is committed but has
-not been run on GitHub; commits remain local to the branch. Never treat the local
-smoke result or the successful frontend build as proof of cloud publication.
+Actual HTTP checks confirm the HTML shell, direct guide/settings/creative/compare
+routes, cacheable hashed JavaScript, JSON API failures, missing assets, and
+traversal rejection. A sample project was created on a named volume, its
+container removed and replaced, and its saved metadata, targets, and PNG
+successfully fetched using the same workspace key. The temporary credential
+file was removed after that check.
+
+Safari renders the compiled interface from the same container port, and `/guide`
+still renders after a direct reload. A browser-created Forma project completed
+real inference and displayed the heatmap, 67.1% combined target share, individual
+metrics, and saved history. This verifies the production origin and SPA routing
+rather than only Vite's development proxy. Compose configuration
+validation passes. Native Linux/arm64 has not been separately built or tested.
+
+## Publication status
+
+Veyo is not published to a public URL. The owner explicitly selected **keep
+cloud spending disabled**. No cloud builds, Cloud Run services, or paid storage
+resources were created. The existing Google Cloud project remains intact;
+Firebase Hosting configuration and its npm CLI dependency have been removed.
+
+The optional Cloud Run script's shell syntax passes. Without paid opt-in it
+exits with status 2 before invoking a cloud command; that guard was exercised.
+The GCS adapter and remote hosting path still require cloud verification if the
+owner later changes the spending decision. See [deployment](deployment.md).
+Never treat local verification as proof of public deployment.

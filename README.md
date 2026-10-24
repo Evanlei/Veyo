@@ -25,7 +25,21 @@ Generative image editing, user accounts, team permissions, and distributed job
 queues are outside this release. The app never substitutes fabricated predictions
 when the model fails.
 
-## Run locally
+## Run the complete app in Docker
+
+```sh
+docker compose up --build -d --wait
+```
+
+Open **http://127.0.0.1:8000**. One container serves the React interface, API,
+and real CPU inference. The build includes the frontend and pretrained model
+weights. Projects and images persist in the `creative_files` volume across
+container replacement. No database or Firebase account is required.
+
+`docker compose down` stops the app and preserves its data. Do not add
+`--volumes` unless you intend to delete that data. Keep your workspace key too.
+
+## Develop locally
 
 Use Python 3.12 and Node 24 LTS. From the repository root, create the backend
 environment if it does not already exist:
@@ -49,6 +63,8 @@ npm run dev
 ```
 
 Open **http://127.0.0.1:5173**. Vite forwards API requests to port 8000.
+For the production interface on one port without Docker, stop the development
+API first and run `npm start`; open **http://127.0.0.1:8000**.
 The first local inference loads pretrained weights into the ignored model cache;
 subsequent predictions reuse the loaded CPU model. The supplied example creatives
 are original illustrated ads; their heatmaps are computed when requested.
@@ -78,23 +94,16 @@ targets, comparison, overlay dimensions, ZIP contents, and workspace isolation.
 See [release verification](docs/release-verification.md) for observed results and
 the limits of what has been verified.
 
-## Deploy to web.app
+## Hosting
 
-Firebase Hosting serves the frontend and forwards API requests to a Cloud Run
-container. A private Google Cloud Storage bucket preserves files across container
-replacement. No PostgreSQL service is involved.
+Cloud spending is disabled by the project owner's choice. The local container
+requires no cloud resources. Veyo has not been published to a public URL.
 
-After authenticating Firebase and Google Cloud and creating a billing-enabled
-Firebase project:
-
-```sh
-bash scripts/deploy.sh YOUR_PROJECT_ID
-```
-
-Read [the deployment runbook](docs/deployment.md) before the first deployment.
-The repository contains the container, Cloud Build configuration, Hosting rewrites,
-and provisioning script. Publication still requires successful authenticated
-deployment and verification of the deployed URL.
+The same image can run on a container host with a persistent `/app/storage`
+volume and HTTPS. Firebase Hosting is not part of the architecture. An optional
+Cloud Run deployment script remains available behind an explicit paid-deployment
+guard; it uses private object storage because Cloud Run disks are ephemeral.
+Read [the deployment runbook](docs/deployment.md) for requirements and limits.
 
 ## Reading the results
 

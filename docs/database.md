@@ -6,9 +6,10 @@ Local development stores JSON records and separate images under the ignored
 `storage/` directory. `VEYO_STORAGE_DIR` can select another directory. The default
 is resolved from the repository root, independent of the launch directory.
 
-Docker Compose now starts the inference API and uses a named `creative_files`
-volume. Cloud Run uses a private Google Cloud Storage bucket through
-`VEYO_GCS_BUCKET`; container-local files are not relied on for durable user data.
+Docker Compose starts the complete interface, API, and model in one container,
+using a named `creative_files` volume. Optional paid Cloud Run hosting uses a
+private Google Cloud Storage bucket through `VEYO_GCS_BUCKET`; container-local
+files are not relied on for durable user data in that configuration.
 
 Use the app's complete-project ZIP export for portable creative and evidence
 backups. Back up the private workspace key from Settings separately; it controls

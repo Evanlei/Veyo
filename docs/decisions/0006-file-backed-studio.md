@@ -53,9 +53,10 @@ the selected region unchanged. Generative image editing is outside this release.
 
 ## Deployment and tradeoffs
 
-Firebase Hosting serves the React build and rewrites `/api/**` to Cloud Run.
-Private GCS objects survive container replacement. The default deployment uses
-one instance, one application worker, two CPUs, and 8 GiB RAM, scaling to zero.
+Decision [0007](0007-single-container.md) updates the hosting architecture:
+one container serves React, FastAPI, and the model, with a persistent local file
+volume. The optional paid Cloud Run adapter uses private GCS objects to survive
+container replacement. It uses one instance, one worker, two CPUs, and 8 GiB RAM.
 Write requests are bounded per connection in process, and upload bytes and decoded
 pixels are limited. These bounds are not a distributed abuse-prevention system.
 
