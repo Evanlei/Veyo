@@ -1,4 +1,4 @@
-"""Bound even chunked bodies before multipart parsing; keep responses private."""
+"""Bound request bodies, protect private API responses and secure the interface."""
 from starlette.responses import JSONResponse
 
 
@@ -34,11 +34,23 @@ class RequestLimits:
 
         async def private_send(message):
             if message["type"] == "http.response.start":
-                overridden = {b"x-content-type-options", b"referrer-policy", b"cache-control"}
+                is_api = scope["path"] == "/api" or scope["path"].startswith("/api/")
+                overridden = {b"x-content-type-options", b"referrer-policy", b"x-frame-options", b"permissions-policy"}
+                if is_api:
+                    overridden.add(b"cache-control")
                 message["headers"] = [(key, value) for key, value in message.get("headers", []) if key.lower() not in overridden]
                 message["headers"] += [(b"x-content-type-options", b"nosniff"),
                                         (b"referrer-policy", b"no-referrer"),
-                                        (b"cache-control", b"private, no-store")]
+                                        (b"x-frame-options", b"DENY"),
+                                        (b"permissions-policy", b"camera=(), microphone=(), geolocation=()")]
+                if is_api:
+                    message["headers"].append((b"cache-control", b"private, no-store"))
+                else:
+                    message["headers"].append((b"content-security-policy", (
+                        b"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; "
+                        b"font-src 'self'; img-src 'self' blob: data:; connect-src 'self'; "
+                        b"object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
+                    )))
             await send(message)
         await self.app(scope, replay, private_send)
 

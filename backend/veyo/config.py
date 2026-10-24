@@ -13,6 +13,7 @@ class Settings:
     max_pixels: int = 12_000_000
     model_max_side: int = 1600
     threads: int = 4
+    frontend_dir: Path | None = None
 
     @classmethod
     def from_env(cls):
@@ -23,4 +24,5 @@ class Settings:
                 "VEYO_ALLOWED_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173"
             ).split(",") if x.strip()),
             threads=int(os.getenv("VEYO_THREADS", "4")),
+            frontend_dir=Path(os.getenv("VEYO_FRONTEND_DIR", str(Path(__file__).resolve().parents[2] / "frontend" / "dist"))),
         )
