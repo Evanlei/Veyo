@@ -37,9 +37,10 @@ class Repository:
         return sorted(records, key=lambda r: r["created_at"], reverse=True)
 
     def project(self, project_id: str) -> dict:
+        from .recovery import recover_interrupted_runs
         return {**self.get("projects", project_id),
                 "assets": self.list("assets", project_id),
-                "runs": self.list("runs", project_id)}
+                "runs": recover_interrupted_runs(self, self.list("runs", project_id))}
 
     def create_project(self, name: str) -> dict:
         return self.save("projects", {"id": new_id(), "name": name[:100],
