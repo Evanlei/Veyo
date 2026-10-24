@@ -62,39 +62,33 @@ There is no single “better ad” score. These results do not establish human a
 One container serves the built React interface, the API, and the CPU model. The browser makes all requests to the same origin.
 
 ```mermaid
-flowchart TD
-    Browser["React + TypeScript in the browser<br/>Library · targets · heatmaps · comparison"]
+flowchart LR
+    Browser["React UI<br/>Targets / comparison"]
 
-    subgraph App["One Docker container · FastAPI · port 8080"]
-        HTTP["Static interface + /api routes<br/>Workspace key · validation · request limits"]
-        Analysis["Analysis service<br/>Validated prediction cache"]
-        Engine["DeepGaze IIE on CPU<br/>One inference at a time"]
-        Metrics["Target metrics + heatmaps<br/>Competing regions"]
-        Revisions["Controlled adjustments<br/>Saved-run comparison · ZIP export"]
-        Repository["Workspace-scoped repository<br/>Projects · assets · analysis runs"]
-        Weights["Pretrained weights<br/>Baked into the image"]
+    subgraph App["One Docker container · port 8080"]
+        HTTP["FastAPI<br/>UI files + /api"]
+        Analysis["Analysis service<br/>Cache / metrics / overlays"]
+        Engine["DeepGaze IIE<br/>CPU / bundled weights"]
+        Revisions["Revisions<br/>Adjust / compare / export"]
     end
 
-    Files[("Persistent volume<br/>JSON · PNG · NumPy probability maps")]
+    Files[("Persistent workspace files<br/>JSON / PNG / NumPy")]
 
-    Browser <-->|"Same origin · X-Workspace-Key on API requests"| HTTP
+    Browser <-->|"Same origin"| HTTP
     HTTP --> Analysis
     HTTP --> Revisions
-    HTTP --> Repository
-    Analysis -->|"Cache miss"| Engine
-    Weights --> Engine
-    Engine --> Metrics
-    Analysis -->|"Cache hit"| Metrics
-    Metrics --> Repository
-    Revisions --> Repository
-    Repository <--> Files
+    Analysis <--> Engine
+    Analysis <--> Files
+    Revisions <--> Files
+    HTTP <--> Files
 
     classDef interface fill:#eef0ff,stroke:#3b4ee8,color:#242720;
     classDef processing fill:#f7f7f2,stroke:#71766b,color:#242720;
     classDef storage fill:#e8edde,stroke:#65705e,color:#242720;
     class Browser,HTTP interface;
-    class Analysis,Engine,Metrics,Revisions processing;
-    class Repository,Files,Weights storage;
+    class Analysis,Engine,Revisions processing;
+    class Files storage;
+    style App fill:#f7f7f2,stroke:#71766b,color:#242720;
 ```
 
 | Component                                          | Responsibility                                                                                                                                                                   |
