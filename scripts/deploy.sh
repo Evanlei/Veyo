@@ -9,6 +9,10 @@ BUILDER="veyo-builder@${PROJECT_ID}.iam.gserviceaccount.com"
 BUILD_BUCKET="${PROJECT_ID}-veyo-build-source"
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT_DIR"
+if ! command -v gcloud >/dev/null && [[ -x "$ROOT_DIR/.local/google-cloud-sdk/bin/gcloud" ]]; then
+  export PATH="$ROOT_DIR/.local/google-cloud-sdk/bin:$PATH"
+  export CLOUDSDK_PYTHON="${CLOUDSDK_PYTHON:-$ROOT_DIR/backend/.venv/bin/python}"
+fi
 command -v gcloud >/dev/null || { echo 'Install the Google Cloud CLI and run gcloud auth login.' >&2; exit 2; }
 if [[ "$(gcloud billing projects describe "$PROJECT_ID" --format='value(billingEnabled)')" != "True" ]]; then
   echo "Link a billing account to $PROJECT_ID before deploying the inference service." >&2
