@@ -1,0 +1,22 @@
+:root {
+  font-family: "Manrope Variable", Manrope, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --canvas: #f7f7f2;
+  --surface: #ffffff;
+  --ink: #242720;
+  --muted: #687060;
+  --line: #e3e5dc;
+  --accent: #3b4ee8;
+  --accent-hover: #2c3cca;
+  --soft: #eef0ff;
+  --sage: #e8edde;
+  --positive: #3e694b;
+  --negative: #aa442f;
+  --warning: #7a5a16;
+  --shadow: 0 6px 28px #24272009;
+  --radius: 12px;
+  color: var(--ink);
+  background: var(--canvas);
+}
