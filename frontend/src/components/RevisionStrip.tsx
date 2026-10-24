@@ -13,7 +13,7 @@ export function RevisionStrip({
   runs: Run[];
   selectedId: string;
   onSelect: (id: string) => void;
-  onUpload: () => void;
+  onUpload?: () => void;
 }) {
   return (
     <section className="revision-section">
@@ -53,10 +53,12 @@ export function RevisionStrip({
             </div>
           </button>
         ))}
-        <button className="revision-add" onClick={onUpload}>
-          <Plus size={22} strokeWidth={1.4} />
-          <span>Add a revision</span>
-        </button>
+        {onUpload && (
+          <button className="revision-add" onClick={onUpload}>
+            <Plus size={22} strokeWidth={1.4} />
+            <span>Add a revision</span>
+          </button>
+        )}
       </div>
     </section>
   );

@@ -54,7 +54,7 @@ export function CreativeCanvas({
   };
   return (
     <div
-      className={`creative-stage ${mode === "targets" ? "drawing-mode" : ""}`}
+      className={`creative-stage ${mode === "targets" && onDraw ? "drawing-mode" : ""}`}
     >
       {!image ? (
         <div className="canvas-loading" role="status">
@@ -171,7 +171,7 @@ export function CreativeCanvas({
           )}
         </div>
       )}
-      {mode === "targets" && (
+      {mode === "targets" && onDraw && (
         <span className="canvas-mode-badge">
           <Crosshair size={12} /> Draw a target
         </span>

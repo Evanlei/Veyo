@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { IS_DEMO, LOCAL_GUIDE } from "../lib/mode";
 import {
   ArrowUpRight,
   Crosshair,
@@ -16,6 +17,15 @@ export function Guide() {
         Veyo helps you see what a visual attention model notices, so you can ask
         better questions about your design.
       </p>
+      {IS_DEMO && (
+        <p className="demo-guide-note">
+          This public demo lets you explore recorded results. The workflow below
+          is available in the complete local app.{" "}
+          <a href={LOCAL_GUIDE} target="_blank" rel="noreferrer">
+            Run Veyo locally.
+          </a>
+        </p>
+      )}
       <div className="guide-steps">
         {[
           {
@@ -97,7 +107,11 @@ export function Guide() {
       <section className="guide-cta">
         <div>
           <h2>Make room for a clearer view.</h2>
-          <p>Start with your own creative or explore an example.</p>
+          <p>
+            {IS_DEMO
+              ? "Explore the three recorded examples."
+              : "Start with your own creative or explore an example."}
+          </p>
         </div>
         <Link className="button button-primary" to="/">
           Open creative library <ArrowUpRight size={16} />

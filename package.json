@@ -7,6 +7,10 @@
   "scripts": {
     "dev": "npm run dev --workspace frontend",
     "build": "npm run build --workspace frontend",
+    "build:demo": "node scripts/verify-demo.mjs && npm run build:demo --workspace frontend",
+    "dev:demo": "npm run dev:demo --workspace frontend",
+    "preview:demo": "npm run preview:demo --workspace frontend",
+    "deploy:demo": "bash scripts/deploy-demo.sh",
     "test": "npm run test --workspace frontend",
     "typecheck": "npm run typecheck --workspace frontend",
     "api": "cd backend && .venv/bin/python -m uvicorn veyo.app:app --host 127.0.0.1 --port 8000",
