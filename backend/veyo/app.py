@@ -9,6 +9,7 @@ from .engine import InferenceEngine, EngineBusy
 from .analysis import AnalysisService
 from .middleware import RequestLimits
 from . import routes_projects, routes_assets, routes_analysis, routes_adjustments, routes_comparisons
+from . import samples
 
 
 def create_app(settings: Settings | None = None, store=None, engine=None) -> FastAPI:
@@ -52,7 +53,7 @@ def create_app(settings: Settings | None = None, store=None, engine=None) -> Fas
         return {"status": "ok", "version": "1.0.0", **application.state.engine.status,
                 "storage": "cloud" if settings.bucket else "local"}
 
-    for module in (routes_projects, routes_assets, routes_analysis, routes_adjustments, routes_comparisons):
+    for module in (routes_projects, routes_assets, routes_analysis, routes_adjustments, routes_comparisons, samples):
         application.include_router(module.router)
     return application
 
