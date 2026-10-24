@@ -20,6 +20,7 @@ import {
   SlidersHorizontal,
 } from "lucide-react";
 import { api } from "../lib/api";
+import { IS_DEMO } from "../lib/mode";
 import { targetBoundsError } from "../lib/geometry";
 import { Button } from "../components/Button";
 import { CreativeCanvas } from "../components/CreativeCanvas";
@@ -200,23 +201,27 @@ function WorkspaceContent({
           </div>
           <h1>
             {project.name}
-            <button
-              className="icon-button"
-              onClick={() => setDialog("rename")}
-              aria-label="Rename creative"
-            >
-              <Pencil size={16} />
-            </button>
+            {!IS_DEMO && (
+              <button
+                className="icon-button"
+                onClick={() => setDialog("rename")}
+                aria-label="Rename creative"
+              >
+                <Pencil size={16} />
+              </button>
+            )}
           </h1>
         </div>
         <div className="heading-actions">
-          <Button
-            icon={<Archive size={15} />}
-            busy={archive.isPending}
-            onClick={() => archive.mutate()}
-          >
-            {project.archived ? "Restore" : "Archive"}
-          </Button>
+          {!IS_DEMO && (
+            <Button
+              icon={<Archive size={15} />}
+              busy={archive.isPending}
+              onClick={() => archive.mutate()}
+            >
+              {project.archived ? "Restore" : "Archive"}
+            </Button>
+          )}
           <Button
             icon={<Download size={15} />}
             onClick={() => setDialog("export")}
@@ -259,7 +264,7 @@ function WorkspaceContent({
                 opacity={opacity}
                 selected={selected}
                 onSelect={setSelected}
-                onDraw={busy ? undefined : draw}
+                onDraw={busy || IS_DEMO ? undefined : draw}
                 showCompeting={mode === "heatmap" && showCompeting}
               />
               {analyze.isPending && (
@@ -300,9 +305,11 @@ function WorkspaceContent({
               ) : (
                 <p>
                   <Info size={13} />
-                  {mode === "targets"
-                    ? "Drag around an element. Targets use the same pixels as the prediction."
-                    : "Your creative, without overlays."}
+                  {IS_DEMO && mode === "targets"
+                    ? "Saved target bounds. Select an element to inspect its evidence."
+                    : mode === "targets"
+                      ? "Drag around an element. Targets use the same pixels as the prediction."
+                      : "Your creative, without overlays."}
                 </p>
               )}
             </div>
@@ -315,13 +322,27 @@ function WorkspaceContent({
             </p>
           )}
           <div className="creative-actions">
-            <Button
-              icon={<SlidersHorizontal size={15} />}
-              onClick={() => setDialog("adjust")}
-              disabled={busy}
-            >
-              Try an adjustment
-            </Button>
+            {IS_DEMO ? (
+              <Button
+                icon={<SlidersHorizontal size={15} />}
+                onClick={() => {
+                  const other = project.assets.find(
+                    (version) => version.id !== asset.id,
+                  );
+                  if (other) selectAsset(other.id);
+                }}
+              >
+                View recorded {asset.parent_id ? "original" : "revision"}
+              </Button>
+            ) : (
+              <Button
+                icon={<SlidersHorizontal size={15} />}
+                onClick={() => setDialog("adjust")}
+                disabled={busy}
+              >
+                Try an adjustment
+              </Button>
+            )}
             <Link className="button button-ghost" to={`/compare/${project.id}`}>
               <Layers2 size={15} />
               Compare versions
@@ -333,7 +354,7 @@ function WorkspaceContent({
             runs={project.runs}
             selectedId={asset.id}
             onSelect={selectAsset}
-            onUpload={() => setDialog("upload")}
+            onUpload={IS_DEMO ? undefined : () => setDialog("upload")}
           />
           <AnalysisHistory
             runs={runs}
@@ -345,7 +366,7 @@ function WorkspaceContent({
           />
         </div>
         <aside className="evidence-rail">
-          {mode === "heatmap" && run ? (
+          {(mode === "heatmap" || IS_DEMO) && run ? (
             <AttentionMetrics
               run={run}
               selected={selected}
@@ -401,16 +422,29 @@ function WorkspaceContent({
               icon={<ArrowUpRight size={16} />}
               busy={analyze.isPending}
               disabled={targets.length === 0 || busy || !!boundsError}
-              onClick={() => analyze.mutate()}
+              onClick={() => {
+                if (IS_DEMO && latest) {
+                  setRunId(latest.id);
+                  setMode("heatmap");
+                  toast(
+                    "Showing the saved analysis. No new prediction was run.",
+                  );
+                } else analyze.mutate();
+              }}
             >
-              {analyze.isPending
-                ? "Analyzing creative"
-                : run
-                  ? "Run analysis again"
-                  : "Run analysis"}
+              {IS_DEMO
+                ? "Show saved analysis"
+                : analyze.isPending
+                  ? "Analyzing creative"
+                  : run
+                    ? "Run analysis again"
+                    : "Run analysis"}
             </Button>
             <p className="analysis-save-note">
-              <Check size={12} /> Results save automatically
+              <Check size={12} />{" "}
+              {IS_DEMO
+                ? "Recorded locally with DeepGaze IIE"
+                : "Results save automatically"}
             </p>
           </div>
           {run && mode === "heatmap" && (

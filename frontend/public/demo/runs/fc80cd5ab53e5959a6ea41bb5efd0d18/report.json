@@ -1,0 +1,145 @@
+{
+  "id": "fc80cd5ab53e5959a6ea41bb5efd0d18",
+  "project_id": "9787bf5317d25dbf86d7438534fe68a8",
+  "asset_id": "83c09394144f5bcbac7d0149a3783b2a",
+  "created_at": "2026-10-24T18:58:23.348678+00:00",
+  "status": "completed",
+  "input_sha256": "e57b740084c49add089398b08418950e1ee2222c7a0424e3945c90a724021502",
+  "width": 900,
+  "height": 1125,
+  "targets": [
+    {
+      "id": "product",
+      "label": "Coffee bag",
+      "role": "product",
+      "box": [
+        240,
+        375,
+        660,
+        955
+      ],
+      "priority": 3
+    },
+    {
+      "id": "headline",
+      "label": "Headline",
+      "role": "headline",
+      "box": [
+        50,
+        170,
+        845,
+        320
+      ],
+      "priority": 2
+    },
+    {
+      "id": "brand",
+      "label": "Brand",
+      "role": "logo",
+      "box": [
+        48,
+        45,
+        425,
+        115
+      ],
+      "priority": 1
+    }
+  ],
+  "completed_at": "2026-10-24T18:58:28.619646+00:00",
+  "metrics": {
+    "targets": [
+      {
+        "id": "product",
+        "label": "Coffee bag",
+        "role": "product",
+        "box": [
+          240,
+          375,
+          660,
+          955
+        ],
+        "priority": 3,
+        "attention_share": 0.3620805012369197,
+        "area_share": 0.24059259259259258,
+        "relative_attention": 1.5049528222593647
+      },
+      {
+        "id": "headline",
+        "label": "Headline",
+        "role": "headline",
+        "box": [
+          50,
+          170,
+          845,
+          320
+        ],
+        "priority": 2,
+        "attention_share": 0.2689686189031991,
+        "area_share": 0.11777777777777777,
+        "relative_attention": 2.2836958208762193
+      },
+      {
+        "id": "brand",
+        "label": "Brand",
+        "role": "logo",
+        "box": [
+          48,
+          45,
+          425,
+          115
+        ],
+        "priority": 1,
+        "attention_share": 0.09207058495884105,
+        "area_share": 0.026064197530864197,
+        "relative_attention": 3.532454235347729
+      }
+    ],
+    "attention_share": 0.7231197050989597,
+    "area_share": 0.3844345679012346,
+    "overlap_note": "Totals count overlapping pixels once."
+  },
+  "model": {
+    "model": "DeepGaze IIE",
+    "centerbias": "uniform",
+    "device": "cpu",
+    "preprocessing": "exif-white-rgb-max1600-v1",
+    "version": 1,
+    "package_version": "1.2.1",
+    "source_commit": "c7db17e2d1d7ea6468ffdee2cfaddf141095dcff"
+  },
+  "cached": false,
+  "seconds": 5.271,
+  "competing_regions": [
+    {
+      "box": [
+        149,
+        1008,
+        266,
+        1125
+      ],
+      "attention_share": 0.044437801157229506,
+      "label": "Competing region 1"
+    },
+    {
+      "box": [
+        266,
+        1008,
+        383,
+        1125
+      ],
+      "attention_share": 0.032709926634987285,
+      "label": "Competing region 2"
+    },
+    {
+      "box": [
+        649,
+        41,
+        766,
+        158
+      ],
+      "attention_share": 0.031940086807190064,
+      "label": "Competing region 3"
+    }
+  ],
+  "interpretation": "Model-predicted fixation probabilities, not measured attention, clicks, or sales."
+}

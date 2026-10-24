@@ -2,16 +2,16 @@
 
 ## Completed checks
 
-| Boundary | Evidence |
-| --- | --- |
-| Frontend production build | Strict TypeScript and Vite production build pass. |
-| Frontend math/presentation checks | Six tests pass across target geometry and metric formatting. |
+| Boundary                               | Evidence                                                                                                                                                                           |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Frontend production build              | Strict TypeScript and Vite production builds pass for both full and demo modes.                                                                                                    |
+| Frontend math/presentation checks      | Nine tests pass across target geometry, metric formatting, and recorded-demo contracts.                                                                                            |
 | Backend contracts and HTTP integration | 50 tests pass, including error propagation, isolation, uploads, history, cache reuse, comparisons, exports, production deep links, asset caching, and API/static route boundaries. |
-| Shipped npm runtime dependencies | `npm audit --omit=dev` reports zero known vulnerabilities. |
-| Desktop interface | Safari renders the library, Figma-based workspace, real heatmap, adjustment dialog, revision workflow, and comparison screen. |
-| Responsive behavior | Comparison controls and image panels stack at a narrower effective viewport using Safari page zoom; zoom restored afterward. This is not a physical mobile-device test. |
-| Real model | Genuine DeepGaze IIE model commit `c7db17e2d1d7ea6468ffdee2cfaddf141095dcff`. No test predictor is used in the live smoke test. |
-| Deployment container | Linux/amd64 image builds successfully with the pinned CPU environment and pretrained weights. It starts as the nonroot `veyo` user. |
+| Shipped npm runtime dependencies       | `npm audit --omit=dev` reports zero known vulnerabilities.                                                                                                                         |
+| Desktop interface                      | Safari renders the library, Figma-based workspace, real heatmap, adjustment dialog, revision workflow, and comparison screen.                                                      |
+| Responsive behavior                    | Comparison controls and image panels stack at a narrower effective viewport using Safari page zoom; zoom restored afterward. This is not a physical mobile-device test.            |
+| Real model                             | Genuine DeepGaze IIE model commit `c7db17e2d1d7ea6468ffdee2cfaddf141095dcff`. No test predictor is used in the live smoke test.                                                    |
+| Deployment container                   | Linux/amd64 image builds successfully with the pinned CPU environment and pretrained weights. It starts as the nonroot `veyo` user.                                                |
 
 ## Complete live smoke flow
 
@@ -74,15 +74,30 @@ metrics, and saved history. This verifies the production origin and SPA routing
 rather than only Vite's development proxy. Compose configuration
 validation passes. Native Linux/arm64 has not been separately built or tested.
 
-## Publication status
+## Public recorded demo verification
 
-Veyo is not published to a public URL. The owner explicitly selected **keep
-cloud spending disabled**. No cloud builds, Cloud Run services, or paid storage
-resources were created. The existing Google Cloud project remains intact;
-Firebase Hosting configuration and its npm CLI dependency have been removed.
+Published to **https://veyo-attention-studio.web.app** on 2026-10-24.
+Firebase Hosting version `282be40bd887ec5e` finalized successfully. Project
+billing was checked after publication: `billingEnabled: false`, with no linked
+billing account. No cloud builds, Cloud Run services, or paid storage resources
+were created.
 
-The optional Cloud Run script's shell syntax passes. Without paid opt-in it
-exits with status 2 before invoking a cloud command; that guard was exercised.
-The GCS adapter and remote hosting path still require cloud verification if the
-owner later changes the spending decision. See [deployment](deployment.md).
-Never treat local verification as proof of public deployment.
+The recorder exercised the production service on three original/revision pairs.
+All six completed runs retain the actual model identity and evidence. Fieldwork's
+revision has lower combined target attention, and that loss remains visible.
+The build validates 27 artifact hashes and the recording's IDs and geometry.
+
+The live HTTPS checker passes for every artifact, all 18 canonical PNG dimensions,
+three ZIP contents, creative/comparison deep links, guide/demo details routes,
+security/cache headers, and unknown API or missing-asset 404 responses. Its local
+report is `outputs/public-demo-verification.json`. This verifies saved results,
+not public live inference. The full backend remains local.
+
+Chrome also renders the compiled demo's library, Forma saved heatmap, recorded
+revision, and comparison locally. The public HTTPS interface also renders the library, saved heatmap, and comparison
+with both positive and negative target changes. A Chrome screenshot confirms
+that the deployed images, overlays, and persistent recorded-demo banner load.
+
+The optional Cloud Run script remains disabled without explicit paid opt-in.
+The GCS adapter and remote full-app hosting path still require cloud verification
+if the owner changes the spending decision. See [deployment](deployment.md).

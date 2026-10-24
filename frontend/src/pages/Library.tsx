@@ -11,6 +11,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { api } from "../lib/api";
+import { IS_DEMO, LOCAL_GUIDE } from "../lib/mode";
 import { Button } from "../components/Button";
 import { ProjectCard } from "../components/ProjectCard";
 import { UploadDialog } from "../components/UploadDialog";
@@ -72,20 +73,34 @@ export function Library() {
       <div className="page-heading">
         <div>
           <div className="eyebrow">
-            <span className="eyebrow-line" /> YOUR CREATIVE WORKSPACE
+            <span className="eyebrow-line" />{" "}
+            {IS_DEMO
+              ? "A LITTLE EVIDENCE TO EXPLORE"
+              : "YOUR CREATIVE WORKSPACE"}
           </div>
           <h1>See what stands out.</h1>
           <p className="page-description">
             A little evidence. A clearer creative decision.
           </p>
         </div>
-        <Button
-          variant="primary"
-          icon={<Plus size={17} />}
-          onClick={() => setUploading(true)}
-        >
-          New creative
-        </Button>
+        {IS_DEMO ? (
+          <a
+            className="button button-primary"
+            href={LOCAL_GUIDE}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Run Veyo locally <ArrowUpRight size={17} />
+          </a>
+        ) : (
+          <Button
+            variant="primary"
+            icon={<Plus size={17} />}
+            onClick={() => setUploading(true)}
+          >
+            New creative
+          </Button>
+        )}
       </div>
       <div className="library-summary">
         <span>
@@ -102,7 +117,10 @@ export function Library() {
           analyses to learn from
         </span>
         <span className="summary-note">
-          <span className="tiny-dot" /> Your work stays in your workspace
+          <span className="tiny-dot" />{" "}
+          {IS_DEMO
+            ? "Real results, recorded on original example ads"
+            : "Your work stays in your workspace"}
         </span>
       </div>
       <section aria-labelledby="library-title">
@@ -135,16 +153,18 @@ export function Library() {
                 <option value="new">Needs analysis</option>
               </select>
             </label>
-            <button
-              className={`icon-button ${archived ? "active" : ""}`}
-              aria-label={
-                archived ? "Show active creatives" : "Show archived creatives"
-              }
-              aria-pressed={archived}
-              onClick={() => setArchived(!archived)}
-            >
-              <FolderOpen size={18} />
-            </button>
+            {!IS_DEMO && (
+              <button
+                className={`icon-button ${archived ? "active" : ""}`}
+                aria-label={
+                  archived ? "Show active creatives" : "Show archived creatives"
+                }
+                aria-pressed={archived}
+                onClick={() => setArchived(!archived)}
+              >
+                <FolderOpen size={18} />
+              </button>
+            )}
             <span className="view-indicator">
               <Grid2X2 size={16} />
             </span>
@@ -180,7 +200,7 @@ export function Library() {
                   ? "Try another search or filter."
                   : "Upload a creative or explore one of the examples below."}
               </p>
-              {!archived && (
+              {!archived && !IS_DEMO && (
                 <Button
                   onClick={() => setUploading(true)}
                   icon={<Plus size={15} />}
@@ -201,7 +221,9 @@ export function Library() {
             <h2 id="samples-title">Curious? Take a closer look.</h2>
           </div>
           <p className="muted">
-            Three example creatives. Your own fresh analysis.
+            {IS_DEMO
+              ? "Three example creatives. Explore their saved analyses."
+              : "Three example creatives. Your own fresh analysis."}
           </p>
         </div>
         <div className="sample-grid">

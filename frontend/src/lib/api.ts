@@ -1,4 +1,6 @@
 import { workspaceKey } from "./workspace";
+import { IS_DEMO } from "./mode";
+import { recordedRequest } from "./demo";
 import type {
   Adjustment,
   Asset,
@@ -19,6 +21,9 @@ export async function request<T>(
   path: string,
   options: RequestInit = {},
 ): Promise<T> {
+  if (IS_DEMO) {
+    return recordedRequest<T>(path, options);
+  }
   const headers = new Headers(options.headers);
   headers.set("X-Workspace-Key", workspaceKey());
   if (options.body && !(options.body instanceof FormData))

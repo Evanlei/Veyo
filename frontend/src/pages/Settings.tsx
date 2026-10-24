@@ -11,8 +11,14 @@ import { api } from "../lib/api";
 import { workspaceKey, importWorkspace } from "../lib/workspace";
 import { Button } from "../components/Button";
 import { useToast } from "../components/Toast";
+import { IS_DEMO } from "../lib/mode";
+import { DemoDetails } from "../components/DemoNotice";
 
 export function Settings() {
+  return IS_DEMO ? <DemoDetails /> : <LiveSettings />;
+}
+
+function LiveSettings() {
   const toast = useToast();
   const [revealed, setRevealed] = useState(false);
   const [key, setKey] = useState("");

@@ -655,3 +655,51 @@ input[type="checkbox"] {
     scroll-behavior: auto !important;
   }
 }
+
+.demo-notice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  padding: 13px 5%;
+  border-bottom: 1px solid var(--line);
+  background: var(--soft);
+  color: var(--ink);
+  font-size: 12px;
+}
+.demo-notice > span,
+.demo-notice a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.demo-notice p {
+  margin: 0;
+}
+.demo-notice a {
+  color: var(--accent);
+  font-weight: 700;
+}
+.demo-guide-note {
+  max-width: 760px;
+  margin: 24px 0;
+  padding: 18px 22px;
+  background: #eef0ff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  line-height: 1.7;
+}
+.demo-guide-note a {
+  color: #3b4ee8;
+  font-weight: 700;
+}
+@media (max-width: 640px) {
+  .demo-notice {
+    justify-content: flex-start;
+    gap: 8px 12px;
+  }
+  .demo-notice p {
+    flex-basis: 100%;
+  }
+}
