@@ -1,6 +1,6 @@
 """Validated request contracts in canonical pixel coordinates."""
 from typing import Literal
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, model_validator
 
 Role = Literal["product", "headline", "logo", "cta", "other"]
 
@@ -13,8 +13,8 @@ class Target(StrictModel):
     id: str = Field(pattern=r"^[a-zA-Z0-9_-]{1,64}$")
     label: str = Field(min_length=1, max_length=80)
     role: Role = "product"
-    box: tuple[int, int, int, int]
-    priority: int = Field(default=1, ge=1, le=3)
+    box: tuple[StrictInt, StrictInt, StrictInt, StrictInt]
+    priority: int = Field(default=1, ge=1, le=3, strict=True)
 
     @model_validator(mode="after")
     def valid_box(self):

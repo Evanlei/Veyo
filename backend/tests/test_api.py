@@ -122,3 +122,10 @@ class ApiTests(unittest.TestCase):
         self.assertEqual(response.status_code, 201, response.text)
         self.assertTrue(response.json()["assets"][0]["confirmed"])
         self.assertEqual(len(response.json()["assets"][0]["targets"]), 3)
+
+    def test_target_coordinates_reject_booleans_and_fractional_pixels(self):
+        _, asset = self.create()
+        for box in [[True, 0, 10, 10], [0, 0, 10.5, 10]]:
+            response = self.client.put(f"/api/assets/{asset['id']}/targets", headers=self.headers,
+                json={"targets": [{"id": "bad", "label": "Bad coordinate", "box": box}]})
+            self.assertEqual(response.status_code, 422)
