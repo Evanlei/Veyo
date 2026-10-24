@@ -2,6 +2,9 @@
 
 Date: 2026-10-24. Updates decision 0006's hosting arrangement.
 
+Public hosting status is superseded by [0008](0008-recorded-public-demo.md).
+The full application remains one local container.
+
 The user chose to keep cloud spending disabled and approved simplifying hosting
 to one Docker application. The original request for a “web.app” meant a web
 application; Firebase's domain is not a product requirement.

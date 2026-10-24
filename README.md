@@ -8,11 +8,14 @@ Mark the product, headline, logo, or call to action. Veyo runs a visual attentio
 </p>
 
 <p align="center">
+  <a href="https://veyo-attention-studio.web.app">Try the recorded demo</a> ·
   <a href="#how-it-works">How it works</a> ·
   <a href="#what-the-model-sees">Examples</a> ·
   <a href="#system-design">System design</a> ·
   <a href="#run-it">Run it</a>
 </p>
+
+Explore **[the public demo](https://veyo-attention-studio.web.app)**: three original ads, six real saved analyses, revision comparisons, and downloadable evidence. It replays recorded results; uploads and fresh inference run in the local app.
 
 ## How it works
 
@@ -100,6 +103,8 @@ flowchart LR
 | [Revision comparison](backend/veyo/comparisons.py) | Compare completed runs from the same project and model configuration, matching elements by label and role.                                                                       |
 | [File repository](backend/veyo/repository.py)      | Scope projects, assets, and runs to a hash of the browser's workspace key. Write local files atomically and keep images separate from JSON metadata.                             |
 
+The public demo builds the same interface in a read-only mode. Firebase Hosting serves static HTML, JavaScript, images, and recorded JSON; the browser loads no model and calls no inference server. The full workflow above runs locally. [Hosting details](docs/deployment.md) explain both modes.
+
 **Why no database?** This version stores a small creative library as independent files and JSON records. A persistent volume preserves them when the container is replaced. Completed runs retain their evidence; edits to current annotations do not rewrite past results. Listing scans records, and simultaneous changes to mutable fields use last-write-wins semantics. Shared accounts, transactions, and larger collaborative workloads would justify revisiting storage.
 
 ## Run it
@@ -114,7 +119,7 @@ Open **[localhost:8000](http://127.0.0.1:8000)**. Choose one of the three exampl
 
 `docker compose down` stops the app and preserves the `creative_files` volume. Adding `--volumes` deletes it. Back up your **workspace key from Settings** as well as your data: the key controls access and is not included in project exports. Use Settings to restore it when changing browsers, hosts, or ports.
 
-**Hosting status:** the app runs locally; no public site has been deployed. Cloud spending stays disabled. See [the hosting runbook](docs/deployment.md) for persistent storage requirements and the optional paid deployment path.
+**Hosting status:** the [recorded demo is live](https://veyo-attention-studio.web.app) on free Firebase Hosting with billing disabled. The complete upload and inference workflow runs locally. See [the hosting runbook](docs/deployment.md) for demo publishing and persistent storage requirements.
 
 <details>
 <summary><b>Local development without Docker</b></summary>
