@@ -5,6 +5,8 @@ PROJECT_ID="${1:?Usage: bash scripts/deploy.sh FIREBASE_PROJECT_ID}"
 REGION=us-central1
 BUCKET="${PROJECT_ID}-veyo-files"
 RUNTIME="veyo-runtime@${PROJECT_ID}.iam.gserviceaccount.com"
+BUILDER="veyo-builder@${PROJECT_ID}.iam.gserviceaccount.com"
+BUILD_BUCKET="${PROJECT_ID}-veyo-build-source"
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT_DIR"
 command -v gcloud >/dev/null || { echo 'Install the Google Cloud CLI and run gcloud auth login.' >&2; exit 2; }
@@ -20,7 +22,21 @@ gcloud storage buckets describe "gs://$BUCKET" --project "$PROJECT_ID" >/dev/nul
 gcloud iam service-accounts describe "$RUNTIME" --project "$PROJECT_ID" >/dev/null 2>&1 || \
   gcloud iam service-accounts create veyo-runtime --display-name 'Veyo file storage runtime' --project "$PROJECT_ID"
 gcloud storage buckets add-iam-policy-binding "gs://$BUCKET" --member "serviceAccount:$RUNTIME" --role roles/storage.objectUser --project "$PROJECT_ID" >/dev/null
-BUILD_ID="$(gcloud builds submit --config cloudbuild.yaml --project "$PROJECT_ID" --format='value(id)')"
+gcloud storage buckets describe "gs://$BUILD_BUCKET" --project "$PROJECT_ID" >/dev/null 2>&1 || \
+  gcloud storage buckets create "gs://$BUILD_BUCKET" --location "$REGION" --uniform-bucket-level-access --public-access-prevention --project "$PROJECT_ID"
+gcloud iam service-accounts describe "$BUILDER" --project "$PROJECT_ID" >/dev/null 2>&1 || \
+  gcloud iam service-accounts create veyo-builder --display-name 'Veyo container build' --project "$PROJECT_ID"
+gcloud artifacts repositories add-iam-policy-binding veyo --location "$REGION" --member "serviceAccount:$BUILDER" --role roles/artifactregistry.writer --project "$PROJECT_ID" >/dev/null
+gcloud storage buckets add-iam-policy-binding "gs://$BUILD_BUCKET" --member "serviceAccount:$BUILDER" --role roles/storage.objectViewer --project "$PROJECT_ID" >/dev/null
+gcloud projects add-iam-policy-binding "$PROJECT_ID" --member "serviceAccount:$BUILDER" --role roles/logging.logWriter >/dev/null
+BUILD_ID="$(gcloud builds submit --config cloudbuild.yaml --project "$PROJECT_ID" --async \
+  --service-account "projects/$PROJECT_ID/serviceAccounts/$BUILDER" \
+  --gcs-source-staging-dir "gs://$BUILD_BUCKET/source" --format='value(id)')"
+gcloud builds log "$BUILD_ID" --stream --project "$PROJECT_ID"
+if [[ "$(gcloud builds describe "$BUILD_ID" --project "$PROJECT_ID" --format='value(status)')" != SUCCESS ]]; then
+  echo "Container build $BUILD_ID did not succeed; deployment stopped." >&2
+  exit 1
+fi
 IMAGE="${REGION}-docker.pkg.dev/${PROJECT_ID}/veyo/api:${BUILD_ID}"
 gcloud run deploy veyo-api --image "$IMAGE" --project "$PROJECT_ID" --region "$REGION" \
   --service-account "$RUNTIME" --allow-unauthenticated --cpu 2 --memory 8Gi \
