@@ -5,6 +5,12 @@ and private Google Cloud Storage files. This requires Firebase and Google Cloud
 authentication and a billing-enabled project. Docker Desktop is not required;
 Cloud Build builds the container remotely.
 
+The deployment project is `veyo-attention-studio` (Google Cloud project number
+`569676285410`). It has already been created; do not create a duplicate. The
+repository's `.firebaserc` selects it by default. Both CLIs are authenticated.
+Firebase's first-time terms acceptance and a linked billing account are the
+remaining account setup requirements before publication.
+
 ## Authenticate and create the project
 
 Use Node 24 LTS for the Firebase deployment CLI. Install the

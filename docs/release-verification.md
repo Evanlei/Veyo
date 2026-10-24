@@ -44,21 +44,16 @@ and Cloud Run deployment source are prepared. The Google Cloud SDK is available
 locally through `npm run cloud -- ...`; the Firebase CLI is installed through npm.
 Deployment shell syntax has been checked.
 
-Firebase project listing currently fails with: `Failed to authenticate, have you
-run firebase login?` No new Firebase project has been created, no billing account
-has been linked, and no live `web.app` URL has been published in this release run.
-The Docker daemon is unavailable locally, so the container build and remote GCS
-adapter still require authenticated cloud verification. CI configuration is
-committed but has not been run on GitHub; commits remain local to the branch.
+Both Firebase and Google Cloud CLIs are now authenticated. The requested Google
+Cloud project `veyo-attention-studio` exists and is owned by the signed-in user.
+Adding Firebase resources returned 403; the Firebase console confirms first-time
+terms acceptance is still required. The existing project is selected in that
+setup form. No billing accounts are available and project billing is disabled.
+No live `web.app` URL has been published yet.
 
-Next required account actions from the repository root:
-
-```sh
-npx firebase login
-npm run cloud -- auth login
-```
-
-After authentication, create the requested new Firebase project, select its
-billing account, run `scripts/deploy.sh`, and run the smoke test against the
-deployed URL. See [deployment](deployment.md). Never treat the local smoke result
-or the successful frontend build as proof of cloud publication.
+After the user completes Firebase terms and billing setup, run
+`bash scripts/deploy.sh veyo-attention-studio`, then run the smoke test against
+the deployed URL. See [deployment](deployment.md). The container and remote GCS
+adapter still require cloud verification. CI configuration is committed but has
+not been run on GitHub; commits remain local to the branch. Never treat the local
+smoke result or the successful frontend build as proof of cloud publication.
