@@ -1,4 +1,4 @@
-"""Veyo's API. Run from backend: python -m uvicorn veyo.app:app --port 8000."""
+"""Veyo's API and built interface, served together on one port."""
 import logging
 from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -8,6 +8,7 @@ from .store import LocalStore
 from .engine import InferenceEngine, EngineBusy
 from .analysis import AnalysisService
 from .middleware import RequestLimits
+from .frontend import mount_frontend
 from .rate_limits import WriteLimiter, limit_writes
 from . import routes_projects, routes_assets, routes_analysis, routes_adjustments, routes_comparisons
 from . import samples
@@ -58,6 +59,7 @@ def create_app(settings: Settings | None = None, store=None, engine=None) -> Fas
 
     for module in (routes_projects, routes_assets, routes_analysis, routes_adjustments, routes_comparisons, samples):
         application.include_router(module.router)
+    mount_frontend(application, settings.frontend_dir)
     return application
 
 

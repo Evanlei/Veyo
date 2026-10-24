@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
-# Build and deploy the complete application. Requires an authenticated, billing-enabled project.
+# Optional paid Cloud Run deployment. Local Docker is the default, no-cost path.
 set -euo pipefail
-PROJECT_ID="${1:?Usage: bash scripts/deploy.sh FIREBASE_PROJECT_ID}"
+if [[ "${VEYO_ALLOW_PAID_CLOUD:-}" != "I_ACCEPT_USAGE_BASED_CHARGES" ]]; then
+  echo 'Cloud spending is disabled for Veyo. Use docker compose up --build -d --wait locally.' >&2
+  echo 'Paid deployment requires a new spending decision and explicit VEYO_ALLOW_PAID_CLOUD opt-in.' >&2
+  exit 2
+fi
+PROJECT_ID="${1:?Usage: bash scripts/deploy.sh GOOGLE_CLOUD_PROJECT_ID}"
 REGION=us-central1
 BUCKET="${PROJECT_ID}-veyo-files"
 RUNTIME="veyo-runtime@${PROJECT_ID}.iam.gserviceaccount.com"
@@ -63,7 +68,5 @@ IMAGE="${REGION}-docker.pkg.dev/${PROJECT_ID}/veyo/api:${BUILD_ID}"
 gcloud run deploy veyo-api --image "$IMAGE" --project "$PROJECT_ID" --region "$REGION" \
   --service-account "$RUNTIME" --allow-unauthenticated --cpu 2 --memory 8Gi \
   --concurrency 8 --max-instances 1 --min-instances 0 --timeout 60 --port 8080 \
-  --set-env-vars "VEYO_GCS_BUCKET=$BUCKET,VEYO_ALLOWED_ORIGINS=https://${PROJECT_ID}.web.app,VEYO_THREADS=2"
-npm run build
-npx firebase deploy --only hosting --project "$PROJECT_ID" --non-interactive
-echo "Deployed: https://${PROJECT_ID}.web.app"
+  --set-env-vars "VEYO_GCS_BUCKET=$BUCKET,VEYO_THREADS=2"
+gcloud run services describe veyo-api --project "$PROJECT_ID" --region "$REGION" --format='value(status.url)'

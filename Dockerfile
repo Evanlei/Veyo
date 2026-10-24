@@ -1,3 +1,11 @@
+FROM node:24-bookworm-slim AS frontend
+WORKDIR /build
+COPY package.json package-lock.json ./
+COPY frontend/package.json ./frontend/package.json
+RUN npm ci --workspace frontend --include-workspace-root=false
+COPY frontend ./frontend
+RUN npm run build --workspace frontend
+
 FROM python:3.12-slim-bookworm
 
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1 \
@@ -16,6 +24,7 @@ RUN python -c 'from veyo.inference import DeepGazePredictor; DeepGazePredictor()
     && mkdir -p /app/storage \
     && groupadd --gid 10001 veyo && useradd --uid 10001 --gid veyo --no-create-home veyo \
     && chown -R veyo:veyo /app
+COPY --from=frontend --chown=veyo:veyo /build/frontend/dist /app/frontend/dist
 USER veyo
 EXPOSE 8080
 CMD ["python", "-m", "uvicorn", "veyo.app:app", "--host", "0.0.0.0", "--port", "8080", "--workers", "1"]
