@@ -1,32 +1,20 @@
-# Local PostgreSQL
+# Storage
 
-Open Docker Desktop. Run commands from the Veyo repository root.
+Veyo no longer requires PostgreSQL. See [decision 0006](decisions/0006-file-backed-studio.md).
 
-## Configuration
+Local development stores JSON records and separate images under the ignored
+`storage/` directory. `VEYO_STORAGE_DIR` can select another directory. The default
+is resolved from the repository root, independent of the launch directory.
 
-`compose.yaml` describes one service, `db`, using the official PostgreSQL 18 Bookworm image. The major version and OS variant are explicit; the tag can receive minor updates and is not a byte-for-byte image pin. Review upgrades deliberately.
+Docker Compose now starts the inference API and uses a named `creative_files`
+volume. Cloud Run uses a private Google Cloud Storage bucket through
+`VEYO_GCS_BUCKET`; container-local files are not relied on for durable user data.
 
-For a fresh checkout, copy `.env.example` to `.env` and replace the placeholder password before first startup. The initial setup generated a random local password in the ignored `.env`; do not commit it. The environment variable initializes the password only on an empty data volume. Editing it later does not rotate the database password.
+Use the app's complete-project ZIP export for portable creative and evidence
+backups. Back up the private workspace key from Settings separately; it controls
+access and is deliberately absent from project exports. Cloud backups and object
+retention policies should be configured according to the deployment's needs.
 
-```sh
-docker compose up -d --wait
-docker compose ps
-docker compose exec db psql -U veyo -d veyo -c 'SELECT current_database(), version();'
-```
-
-- `ports` exposes PostgreSQL at `127.0.0.1:5432` on this Mac. A future host-run API connects there; a future Compose service would use `db:5432`.
-- `postgres_data` is a Docker-managed named volume mounted at `/var/lib/postgresql`, following the PostgreSQL 18 image layout. It holds the database files independently of the container.
-- The health check uses `pg_isready` to check server readiness, not schema correctness or application credentials.
-- There is no restart policy yet: start the database explicitly when developing.
-- The bootstrap `veyo` user is a local development superuser. A deployed application needs separate restricted credentials; do not reuse this setup as production configuration.
-
-## Stop and resume
-
-```sh
-docker compose stop
-docker compose start --wait
-```
-
-`docker compose down` removes the container and network but retains the named volume; `docker compose up -d --wait` reuses it. **Adding `--volumes` to down deletes the database volume.** A volume is persistent storage, not a backup.
-
-The database currently has no Veyo application tables, migrations, or Python connection integration. Those are separate increments.
+The historical PostgreSQL setup is recorded in decision 0005 and the build log.
+No command has been run to delete its existing Docker volume. Avoid deleting
+volumes unless you have deliberately backed up and retired their contents.
