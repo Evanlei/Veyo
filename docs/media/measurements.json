@@ -1,0 +1,468 @@
+{
+  "model": {
+    "model": "DeepGaze IIE",
+    "centerbias": "uniform",
+    "device": "cpu",
+    "preprocessing": "exif-white-rgb-max1600-v1",
+    "version": 1,
+    "package_version": "1.2.1",
+    "source_commit": "c7db17e2d1d7ea6468ffdee2cfaddf141095dcff"
+  },
+  "heatmap": {
+    "percentile": 99.5,
+    "opacity": 0.6
+  },
+  "examples": [
+    {
+      "name": "forma",
+      "short_name": "Forma",
+      "targets": [
+        {
+          "id": "products",
+          "label": "Products",
+          "role": "product",
+          "box": [
+            175,
+            345,
+            735,
+            930
+          ],
+          "priority": 3
+        },
+        {
+          "id": "headline",
+          "label": "Headline",
+          "role": "headline",
+          "box": [
+            50,
+            170,
+            825,
+            310
+          ],
+          "priority": 2
+        },
+        {
+          "id": "brand",
+          "label": "Brand",
+          "role": "logo",
+          "box": [
+            48,
+            40,
+            300,
+            135
+          ],
+          "priority": 1
+        }
+      ],
+      "metrics": {
+        "targets": [
+          {
+            "id": "products",
+            "label": "Products",
+            "role": "product",
+            "box": [
+              175,
+              345,
+              735,
+              930
+            ],
+            "priority": 3,
+            "attention_share": 0.23413335291553475,
+            "area_share": 0.32355555555555554,
+            "relative_attention": 0.7236264341482874
+          },
+          {
+            "id": "headline",
+            "label": "Headline",
+            "role": "headline",
+            "box": [
+              50,
+              170,
+              825,
+              310
+            ],
+            "priority": 2,
+            "attention_share": 0.3373853361243826,
+            "area_share": 0.10716049382716049,
+            "relative_attention": 3.148411546782833
+          },
+          {
+            "id": "brand",
+            "label": "Brand",
+            "role": "logo",
+            "box": [
+              48,
+              40,
+              300,
+              135
+            ],
+            "priority": 1,
+            "attention_share": 0.09919390681441058,
+            "area_share": 0.023644444444444444,
+            "relative_attention": 4.195231021286162
+          }
+        ],
+        "attention_share": 0.670712595854328,
+        "area_share": 0.4543604938271605,
+        "overlap_note": "Totals count overlapping pixels once."
+      },
+      "provenance": {
+        "source_sha256": "00806191d2b97a1b3575ec02f22b0d4d70755dcc1fd114a529ea8100e7195e07",
+        "source_width": 900,
+        "source_height": 1125,
+        "resized": false
+      },
+      "competing_regions": [
+        {
+          "box": [
+            108,
+            1008,
+            225,
+            1125
+          ],
+          "attention_share": 0.05179931386760913,
+          "label": "Competing region 1"
+        },
+        {
+          "box": [
+            709,
+            1008,
+            826,
+            1125
+          ],
+          "attention_share": 0.041373247922914816,
+          "label": "Competing region 2"
+        },
+        {
+          "box": [
+            667,
+            40,
+            784,
+            157
+          ],
+          "attention_share": 0.03894575581241577,
+          "label": "Competing region 3"
+        }
+      ],
+      "image_sha256": "da67d9eb61d78c95c66de7dda924dc89da84bbc353f6ff772320615f1fb29137",
+      "probability_sha256": "66fdf32c7fb90615bcc58dd8919c47148e94a9dc34fce8a1f14fe55fb1aad244"
+    },
+    {
+      "name": "fieldwork",
+      "short_name": "Fieldwork",
+      "targets": [
+        {
+          "id": "product",
+          "label": "Coffee bag",
+          "role": "product",
+          "box": [
+            240,
+            375,
+            660,
+            955
+          ],
+          "priority": 3
+        },
+        {
+          "id": "headline",
+          "label": "Headline",
+          "role": "headline",
+          "box": [
+            50,
+            170,
+            845,
+            320
+          ],
+          "priority": 2
+        },
+        {
+          "id": "brand",
+          "label": "Brand",
+          "role": "logo",
+          "box": [
+            48,
+            45,
+            425,
+            115
+          ],
+          "priority": 1
+        }
+      ],
+      "metrics": {
+        "targets": [
+          {
+            "id": "product",
+            "label": "Coffee bag",
+            "role": "product",
+            "box": [
+              240,
+              375,
+              660,
+              955
+            ],
+            "priority": 3,
+            "attention_share": 0.3721385223846302,
+            "area_share": 0.24059259259259258,
+            "relative_attention": 1.5467580209952303
+          },
+          {
+            "id": "headline",
+            "label": "Headline",
+            "role": "headline",
+            "box": [
+              50,
+              170,
+              845,
+              320
+            ],
+            "priority": 2,
+            "attention_share": 0.2645827732806317,
+            "area_share": 0.11777777777777777,
+            "relative_attention": 2.2464575089864955
+          },
+          {
+            "id": "brand",
+            "label": "Brand",
+            "role": "logo",
+            "box": [
+              48,
+              45,
+              425,
+              115
+            ],
+            "priority": 1,
+            "attention_share": 0.09084560245923906,
+            "area_share": 0.026064197530864197,
+            "relative_attention": 3.485455569912071
+          }
+        ],
+        "attention_share": 0.7275668981245009,
+        "area_share": 0.3844345679012346,
+        "overlap_note": "Totals count overlapping pixels once."
+      },
+      "provenance": {
+        "source_sha256": "cb72309005f3db2bd7292c452b321316b698369b6e9822cbe637327b0766b555",
+        "source_width": 900,
+        "source_height": 1125,
+        "resized": false
+      },
+      "competing_regions": [
+        {
+          "box": [
+            148,
+            1008,
+            265,
+            1125
+          ],
+          "attention_share": 0.04406635804187922,
+          "label": "Competing region 1"
+        },
+        {
+          "box": [
+            265,
+            1008,
+            382,
+            1125
+          ],
+          "attention_share": 0.032707551272872955,
+          "label": "Competing region 2"
+        },
+        {
+          "box": [
+            649,
+            40,
+            766,
+            157
+          ],
+          "attention_share": 0.03086566198337789,
+          "label": "Competing region 3"
+        }
+      ],
+      "image_sha256": "4e281c2ea67332a7799b08ad12180c3c52fd842c3acdab5ced9f773b4e21e262",
+      "probability_sha256": "3772f31b0db3c020400c68da7246c911a30246eea0ef179d97376862854b828e"
+    },
+    {
+      "name": "pace",
+      "short_name": "Pace",
+      "targets": [
+        {
+          "id": "headline",
+          "label": "Headline",
+          "role": "headline",
+          "box": [
+            45,
+            178,
+            760,
+            537
+          ],
+          "priority": 3
+        },
+        {
+          "id": "cta",
+          "label": "Call to action",
+          "role": "cta",
+          "box": [
+            50,
+            992,
+            395,
+            1084
+          ],
+          "priority": 2
+        },
+        {
+          "id": "brand",
+          "label": "Brand",
+          "role": "logo",
+          "box": [
+            48,
+            45,
+            295,
+            135
+          ],
+          "priority": 1
+        }
+      ],
+      "metrics": {
+        "targets": [
+          {
+            "id": "headline",
+            "label": "Headline",
+            "role": "headline",
+            "box": [
+              45,
+              178,
+              760,
+              537
+            ],
+            "priority": 3,
+            "attention_share": 0.3553151666169469,
+            "area_share": 0.25351604938271605,
+            "relative_attention": 1.4015490044204326
+          },
+          {
+            "id": "cta",
+            "label": "Call to action",
+            "role": "cta",
+            "box": [
+              50,
+              992,
+              395,
+              1084
+            ],
+            "priority": 2,
+            "attention_share": 0.16824806324977296,
+            "area_share": 0.031348148148148146,
+            "relative_attention": 5.367081412740867
+          },
+          {
+            "id": "brand",
+            "label": "Brand",
+            "role": "logo",
+            "box": [
+              48,
+              45,
+              295,
+              135
+            ],
+            "priority": 1,
+            "attention_share": 0.09040672159612125,
+            "area_share": 0.021955555555555555,
+            "relative_attention": 4.1177150524549155
+          }
+        ],
+        "attention_share": 0.6139699514628412,
+        "area_share": 0.30681975308641973,
+        "overlap_note": "Totals count overlapping pixels once."
+      },
+      "provenance": {
+        "source_sha256": "65e7d0f2b03ade8dd8c6413d378d9a0a54747b8e2014d2700c3203cde6a2f9e5",
+        "source_width": 900,
+        "source_height": 1125,
+        "resized": false
+      },
+      "competing_regions": [
+        {
+          "box": [
+            621,
+            629,
+            738,
+            746
+          ],
+          "attention_share": 0.09529215934194765,
+          "label": "Competing region 1"
+        },
+        {
+          "box": [
+            656,
+            42,
+            773,
+            159
+          ],
+          "attention_share": 0.04919363630354508,
+          "label": "Competing region 2"
+        },
+        {
+          "box": [
+            653,
+            1008,
+            770,
+            1125
+          ],
+          "attention_share": 0.018470376291631202,
+          "label": "Competing region 3"
+        }
+      ],
+      "image_sha256": "2ffd931996556a0485743dcd2403b2e8acce2eafaee6de38328d3809a3febb3d",
+      "probability_sha256": "511fe60a6c23e7f9c9cbc81b3b36c1b8728090b4b7045fc584f31783627d171e"
+    }
+  ],
+  "comparison": {
+    "settings": {
+      "label": "Brighter products",
+      "brightness": 1.2,
+      "contrast": 1,
+      "saturation": 1,
+      "sharpness": 1,
+      "target_id": "products"
+    },
+    "change": {
+      "changed_pixel_share": 0.31990814814814816,
+      "mean_absolute_change": 6.914281481481481,
+      "dimensions_preserved": true,
+      "kind": "controlled-adjustment",
+      "settings": {
+        "label": "Brighter products",
+        "brightness": 1.2,
+        "contrast": 1,
+        "saturation": 1,
+        "sharpness": 1,
+        "target_id": "products"
+      }
+    },
+    "targets": [
+      {
+        "label": "Products",
+        "before": 0.23413335291553475,
+        "after": 0.23837504608330815,
+        "delta_pp": 0.4241693167773397
+      },
+      {
+        "label": "Headline",
+        "before": 0.3373853361243826,
+        "after": 0.3422679637692596,
+        "delta_pp": 0.48826276448770134
+      },
+      {
+        "label": "Brand",
+        "before": 0.09919390681441058,
+        "after": 0.09743268604892968,
+        "delta_pp": -0.17612207654808948
+      }
+    ],
+    "before_total": 0.670712595854328,
+    "after_total": 0.6780756959014973,
+    "image_sha256": "f39007616249e818e6b458c739d12f3459ace36f1ae5c2c8cc9a91908f0dd313",
+    "probability_sha256": "9fb854caed46b5514f05eeca44f75dc77a25b7b58b4aa3dcc5bd7c8f960007e6",
+    "outside_target_pixels_unchanged": true
+  }
+}
