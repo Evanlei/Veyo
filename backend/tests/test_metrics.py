@@ -36,3 +36,10 @@ class MetricTests(unittest.TestCase):
         regions = competing_regions(p, [target("primary", [10, 10, 40, 40])])
         self.assertTrue(regions)
         self.assertGreater(regions[0]["box"][0], 40)
+
+    def test_competing_boxes_do_not_overlap_any_target(self):
+        p = np.full((100, 100), .0001)
+        targets = [target("primary", [30, 30, 70, 70])]
+        for region in competing_regions(p, targets):
+            l, t, r, b = region["box"]
+            self.assertTrue(r <= 30 or l >= 70 or b <= 30 or t >= 70)

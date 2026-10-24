@@ -5,13 +5,15 @@ from scipy.ndimage import uniform_filter
 
 def competing_regions(probability: np.ndarray, targets: list[dict], count=3) -> list[dict]:
     h, w = probability.shape
-    size = max(4, round(min(h, w)*0.13))
+    size = max(5, round(min(h, w)*0.13)) | 1
     available = np.ones((h, w), bool)
     for target in targets:
         l, t, r, b = target["box"]
         available[t:b, l:r] = False
     local_mass = uniform_filter(np.where(available, probability, 0), size=size, mode="constant")
-    local_mass[~available] = 0
+    # Report whole regions outside every target, not boxes whose center alone is outside.
+    clear_window = uniform_filter(available.astype(float), size=size, mode="constant") > .999999
+    local_mass[~clear_window] = 0
     regions = []
     for _ in range(count):
         y, x = np.unravel_index(local_mass.argmax(), local_mass.shape)
