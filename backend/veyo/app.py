@@ -1,6 +1,6 @@
 """Veyo's API. Run from backend: python -m uvicorn veyo.app:app --port 8000."""
 import logging
-from fastapi import FastAPI, Request
+from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from .config import Settings
@@ -8,6 +8,7 @@ from .store import LocalStore
 from .engine import InferenceEngine, EngineBusy
 from .analysis import AnalysisService
 from .middleware import RequestLimits
+from .rate_limits import WriteLimiter, limit_writes
 from . import routes_projects, routes_assets, routes_analysis, routes_adjustments, routes_comparisons
 from . import samples
 
@@ -15,6 +16,7 @@ from . import samples
 def create_app(settings: Settings | None = None, store=None, engine=None) -> FastAPI:
     settings = settings or Settings.from_env()
     application = FastAPI(title="Veyo Attention Studio", version="1.0.0", docs_url="/api/docs",
+                          dependencies=[Depends(limit_writes)],
                           openapi_url="/api/openapi.json", redoc_url=None)
     if store is None:
         if settings.bucket:
@@ -26,6 +28,7 @@ def create_app(settings: Settings | None = None, store=None, engine=None) -> Fas
     application.state.store = store
     application.state.engine = engine or InferenceEngine(settings)
     application.state.analysis = AnalysisService(application.state.engine)
+    application.state.write_limiter = WriteLimiter()
     application.add_middleware(RequestLimits)
     application.add_middleware(CORSMiddleware, allow_origins=list(settings.allowed_origins),
                                allow_methods=["GET", "POST", "PUT", "PATCH", "OPTIONS"],
