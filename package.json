@@ -10,11 +10,10 @@
     "test": "npm run test --workspace frontend",
     "typecheck": "npm run typecheck --workspace frontend",
     "api": "cd backend && .venv/bin/python -m uvicorn veyo.app:app --host 127.0.0.1 --port 8000",
-    "firebase": "firebase",
+    "start": "npm run build && npm run api",
     "cloud": "bash scripts/google-cloud.sh"
   },
   "devDependencies": {
-    "firebase-tools": "^15.34.1",
     "prettier": "^3.9.10"
   }
 }
