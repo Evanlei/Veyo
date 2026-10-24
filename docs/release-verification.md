@@ -11,6 +11,7 @@
 | Desktop interface | Safari renders the library, Figma-based workspace, real heatmap, adjustment dialog, revision workflow, and comparison screen. |
 | Responsive behavior | Comparison controls and image panels stack at a narrower effective viewport using Safari page zoom; zoom restored afterward. This is not a physical mobile-device test. |
 | Real model | Genuine DeepGaze IIE model commit `c7db17e2d1d7ea6468ffdee2cfaddf141095dcff`. No test predictor is used in the live smoke test. |
+| Deployment container | Linux/amd64 image builds successfully with the pinned CPU environment and pretrained weights. It starts as the nonroot `veyo` user. |
 
 ## Complete live smoke flow
 
@@ -37,6 +38,16 @@ and compared. The interface displayed both positive product attention change and
 negative brand attention change. No higher-score result is presented as proof of
 better advertising performance.
 
+## Linux container verification
+
+The same nine real-model smoke checks also pass against the actual Linux/amd64
+deployment container at local port 18080. Its report is saved in ignored
+`outputs/container-smoke.json`. Combined attention shares were 0.6707125865 and
+0.6780757550, matching the macOS results to normal floating-point tolerance.
+Baseline and revision analyses took 17.404 and 8.784 seconds on the local
+cross-architecture Docker run, not native Google Cloud hardware. The temporary
+verification container was stopped after testing. This incurred no cloud compute.
+
 ## Deployment status and remaining verification
 
 The Firebase Hosting, Cloud Build, private GCS storage, service-account roles,
@@ -49,11 +60,14 @@ Cloud project `veyo-attention-studio` exists and is owned by the signed-in user.
 Adding Firebase resources returned 403; the Firebase console confirms first-time
 terms acceptance is still required. The existing project is selected in that
 setup form. No billing accounts are available and project billing is disabled.
-No live `web.app` URL has been published yet.
+No live `web.app` URL has been published yet. Project billing remains disabled;
+no cloud builds, Cloud Run services, or paid storage resources have been created.
+The user has asked about charges, so billing-dependent work is awaiting their
+hosting-cost preference.
 
 After the user completes Firebase terms and billing setup, run
 `bash scripts/deploy.sh veyo-attention-studio`, then run the smoke test against
-the deployed URL. See [deployment](deployment.md). The container and remote GCS
-adapter still require cloud verification. CI configuration is committed but has
+the deployed URL. See [deployment](deployment.md). The remote GCS adapter and
+hosting integration still require cloud verification. CI configuration is committed but has
 not been run on GitHub; commits remain local to the branch. Never treat the local
 smoke result or the successful frontend build as proof of cloud publication.
