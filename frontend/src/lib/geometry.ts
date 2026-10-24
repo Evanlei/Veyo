@@ -11,3 +11,11 @@ export function boxStyle(box: Box, width: number, height: number) {
 }
 
 export const validBox = (box: Box) => box[2] - box[0] >= 3 && box[3] - box[1] >= 3;
+
+export function targetBoundsError(targets: { box: Box; label: string; role: string }[], width: number, height: number): string | undefined {
+  if (targets.some(target => !target.label.trim())) return 'Give each target a name.';
+  if (targets.some(({ box: [left, top, right, bottom] }) => left < 0 || top < 0 || right > width || bottom > height || right <= left || bottom <= top)) return 'Each target needs a positive area within the image bounds.';
+  const names = targets.map(target => `${target.role}:${target.label.trim().toLowerCase()}`);
+  if (new Set(names).size !== names.length) return 'Use distinct labels for targets with the same element type.';
+  return undefined;
+}
