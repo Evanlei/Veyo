@@ -5,10 +5,10 @@ ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1 \
 RUN apt-get update && apt-get install -y --no-install-recommends git ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 WORKDIR /app/backend
-COPY backend/requirements.txt backend/requirements-web.txt ./
+COPY backend/requirements-web-lock.txt ./
 # Install CPU-only wheels first; the exact model environment accepts their local version suffix.
 RUN python -m pip install 'torch==2.14.0' 'torchvision==0.29.0' --index-url https://download.pytorch.org/whl/cpu \
-    && python -m pip install -r requirements-web.txt
+    && python -m pip install -r requirements-web-lock.txt
 COPY backend/veyo ./veyo
 COPY frontend/public/samples /app/frontend/public/samples
 # Bake public pretrained weights into the image. Cold requests never download models.
