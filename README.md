@@ -1,87 +1,119 @@
-# Veyo
+# Veyo — Attention Studio
 
-Attention analysis and creative review for marketing teams.
+See what stands out in your creative before deciding what to change.
 
-Veyo is being built to help teams inspect what draws predicted visual attention in a static ad, compare revisions, and keep a reproducible record of creative experiments. It supports PNG/JPEG social ads, banners, product promotions, and other static creatives.
+Veyo is a complete local web application for reviewing static advertisements:
+upload a creative, mark its important elements, run real DeepGaze IIE inference,
+and compare revisions using saved, reproducible evidence.
 
-## Status
+## What is implemented
 
-The image loader and real CPU DeepGaze IIE inference are implemented. Twenty focused tests pass, and a prediction on the supplied product image has been verified for dimensions and probability normalization. Target scoring, heatmap visualization, and the web application are the next features. The capabilities and architecture below describe the planned product.
+- Searchable creative library with rename, archive, and original example ads.
+- PNG/JPEG uploads with orientation, transparency handling, and bounded dimensions.
+- Up to eight named rectangle targets with product/headline/logo/CTA roles and priorities.
+- Aligned heatmaps, attention share, area share, and attention relative to image area.
+- Competing attention regions outside the marked targets.
+- Immutable analysis history, cached predictions, and independent revision annotations.
+- Controlled whole-image or localized brightness, contrast, saturation, and sharpness edits.
+- Side-by-side revision comparisons with actual positive and negative changes.
+- Creative, heatmap, JSON report, and complete-project ZIP downloads.
+- Anonymous private workspaces with key backup and restore.
+- React/TypeScript frontend designed in [Figma](https://www.figma.com/design/gxDTce6luov9uIGO95ehO4?node-id=2-2).
+- FastAPI backend, local files/JSON or private Google Cloud Storage; no SQL database.
 
-## First milestone
+Generative image editing, user accounts, team permissions, and distributed job
+queues are outside this release. The app never substitutes fabricated predictions
+when the model fails.
 
-Start with a real DeepGaze IIE experiment using sample ads, then build one complete workflow:
+## Run locally
 
-1. Upload a static ad.
-2. Manually mark a target, such as a product, logo, headline, or call to action.
-3. Run DeepGaze IIE to predict a spatial fixation distribution.
-4. Display an aligned heatmap and the predicted attention share inside the target.
-
-Show the target's share of image area alongside its attention share to make the result easier to interpret. Model failures must be visible errors, never substitute heatmaps.
-
-The next milestone is comparing an uploaded revision with its own correctly marked corresponding target. Later work adds campaign priorities, saved experiment history, and controlled creative adjustments.
-
-## Planned architecture
-
-One repository, with a React interface, a Python API, and a separate Python process for inference. The API and worker share the analysis code. The worker keeps slow model execution separate from web request handling.
-
-| Component | Technology | Purpose |
-| --- | --- | --- |
-| Frontend | React, TypeScript | Uploads, target selection, heatmaps, and comparisons |
-| API | Python, FastAPI | Validation, asset management, and analysis jobs |
-| Inference | PyTorch, DeepGaze IIE | Predicted fixation distributions |
-| Image processing | Pillow; OpenCV as needed | Image preparation and coordinate handling |
-| Database | PostgreSQL | Projects, assets, jobs, variants, settings, and scores |
-| File storage | Local files initially | Uploaded creatives and generated results |
-
-Introduce Docker and focused automated checks as components are implemented. Consider S3 for shared file storage and SQS for job delivery when deployment requires them. Benchmark inference before choosing GPU hosting.
-
-## Interpretation and limits
-
-- Scores describe model-predicted fixation probabilities. They do not establish click-through rates, sales, or measured human attention.
-- DeepGaze IIE provides spatial predictions, not a temporal gaze path.
-- Each revision needs a verified target annotation; moving an element can invalidate its previous coordinates.
-- Flattened images support analysis and controlled adjustments. Precise layout changes require separate assets or a structured design.
-- A higher model score alone does not prove that an ad is better. Optimization will need evaluation beyond the scoring model.
-
-## Development
-
-Build and verify one complete increment at a time. Record significant design decisions and their tradeoffs as the project develops. See [the environment setup guide](docs/environment.md), [the environment decision](docs/decisions/0001-model-environment.md), and [the build log](docs/build-log.md).
-
-Keep local ads, generated results, model weights, secrets, and installed dependencies out of Git. Small, deliberately selected test fixtures can be tracked separately when appropriate.
-
-## Attribution
-
-The workflow is inspired by [Pixel](https://github.com/EnesYilmazcode/Pixel). The planned prediction model is [DeepGaze IIE](https://github.com/matthias-k/DeepGaze), by Linardos, Kümmerer, Press, and Bethge.
-
-Veyo's application and evaluation work will build on that research; it does not claim to have developed or trained DeepGaze.
-
-## Check the image loader
-
-From the repository root:
+Use Python 3.12 and Node 24 LTS. From the repository root, create the backend
+environment if it does not already exist:
 
 ```sh
+python3.12 -m venv backend/.venv
+backend/.venv/bin/python -m pip install -r backend/requirements-web-lock.txt
+npm ci
+```
+
+Start the API:
+
+```sh
+npm run api
+```
+
+In another terminal, start the interface:
+
+```sh
+npm run dev
+```
+
+Open **http://127.0.0.1:5173**. Vite forwards API requests to port 8000.
+The first local inference loads pretrained weights into the ignored model cache;
+subsequent predictions reuse the loaded CPU model. The supplied example creatives
+are original illustrated ads; their heatmaps are computed when requested.
+
+Local data lives in ignored `storage/`. Back up the workspace key from Settings
+to restore access from another browser. A project ZIP contains its creatives and
+evidence, not its private access key.
+
+## Verify
+
+```sh
+npm run build
+npm test
 cd backend
 .venv/bin/python -m unittest discover -s tests -v
 ```
 
-`veyo.images.load_image(path)` returns an RGB Pillow image at its oriented dimensions. It does not resize, alter the source file, or run the model. See [the image-loader decision](docs/decisions/0002-canonical-image-loader.md) for the contract and remaining upload concerns.
-
-## Run real inference
-
-From the repository root, using the installed environment:
+With both development servers running, exercise the complete real-model flow
+from the repository root:
 
 ```sh
-cd backend
-.venv/bin/python -m veyo.inference ../data/samples/the-ordinary-review-is-this.jpeg --output ../outputs/my-first-run
+backend/.venv/bin/python scripts/smoke_test.py --output outputs/release-smoke.json
 ```
 
-Choose a new output directory for every run. The first run downloads upstream pretrained model files into the ignored `model-cache/` directory. Subsequent runs reuse the cache. No fallback prediction is generated if downloading or inference fails.
+The smoke test checks real inference, adjustment, multipart upload, corresponding
+targets, comparison, overlay dimensions, ZIP contents, and workspace isolation.
+See [release verification](docs/release-verification.md) for observed results and
+the limits of what has been verified.
 
-The output directory contains `input.png` (canonical image), `probability.npy` (numerical H x W probability grid), and `report.json` (settings, identity hashes, dimensions and timing). A completed report is written last. There is no overlay or target score yet.
+## Deploy to web.app
 
-Inference uses CPU, four threads by default, a uniform center-bias input, and no external resizing. See [the inference decision](docs/decisions/0003-real-inference.md). These results are model predictions; the successful run establishes pipeline mechanics, not accuracy on ads.
+Firebase Hosting serves the frontend and forwards API requests to a Cloud Run
+container. A private Google Cloud Storage bucket preserves files across container
+replacement. No PostgreSQL service is involved.
 
-## Local database
+After authenticating Firebase and Google Cloud and creating a billing-enabled
+Firebase project:
 
-PostgreSQL can now run locally through Docker Compose with persistent storage. See [database setup and lifecycle](docs/database.md). The database has no application tables or Python integration yet.
+```sh
+bash scripts/deploy.sh YOUR_PROJECT_ID
+```
+
+Read [the deployment runbook](docs/deployment.md) before the first deployment.
+The repository contains the container, Cloud Build configuration, Hosting rewrites,
+and provisioning script. Publication still requires successful authenticated
+deployment and verification of the deployed URL.
+
+## Reading the results
+
+Attention share is model-predicted fixation probability inside a target. It is
+not a percentage of viewers, click probability, CTR, sales, or measured human
+attention. Relative attention divides that share by the region's area share.
+Overlapping regions count once in the combined total.
+
+DeepGaze IIE predicts spatial saliency rather than temporal gaze paths. Scores
+do not establish whether a creative communicates effectively or meets campaign
+goals. Each revision needs a correctly placed corresponding target. Review the
+actual design and validate consequential decisions with people.
+
+## Architecture and attribution
+
+See [storage](docs/database.md), [the architecture decision](docs/decisions/0006-file-backed-studio.md),
+[design direction](docs/design.md), and the historical [build log](docs/build-log.md).
+
+The workflow is inspired by [Pixel](https://github.com/EnesYilmazcode/Pixel).
+Predictions use [DeepGaze IIE](https://github.com/matthias-k/DeepGaze), by Linardos,
+Kümmerer, Press, and Bethge. Veyo does not claim to have developed or trained that
+model. Dependency notices ship in `/licenses/THIRD-PARTY.txt`.
