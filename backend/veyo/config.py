@@ -17,7 +17,7 @@ class Settings:
     @classmethod
     def from_env(cls):
         return cls(
-            storage_dir=Path(os.getenv("VEYO_STORAGE_DIR", "../storage")),
+            storage_dir=Path(os.getenv("VEYO_STORAGE_DIR", str(Path(__file__).resolve().parents[2] / "storage"))),
             bucket=os.getenv("VEYO_GCS_BUCKET") or None,
             allowed_origins=tuple(x.strip() for x in os.getenv(
                 "VEYO_ALLOWED_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173"
