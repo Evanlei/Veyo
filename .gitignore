@@ -50,3 +50,10 @@ coverage/
 # Operating-system metadata.
 .DS_Store
 Thumbs.db
+
+# Deployment state, CLI credentials, and debug output.
+.firebase/
+firebase-debug*.log
+ui-debug.log
+/.local/
+/.gcloud/
